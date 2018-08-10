@@ -1,0 +1,11 @@
+framework module Drivit {
+  umbrella header "Drivit.h"
+
+  export *
+  module * { export * }
+}
+
+module Drivit.Swift {
+    header "Drivit-Swift.h"
+    requires objc
+}
