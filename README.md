@@ -48,7 +48,7 @@ With these three steps, your app should be already compiling the Drivit SDK. Now
 Add the following code to your application:
 ```swift
 func application(_ application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+                   didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
         Drivit.shared.register(withOptions: launchOptions)
         application.registerForRemoteNotifications()
@@ -56,9 +56,18 @@ func application(_ application: UIApplication,
         return true
 }
 ```
-Next add the following code to application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void)
+Next add the following code to your application:
 ```swift
-Drivit.shared.applicationDiStartWithBackgroundSessionEvents(SessionIdentifier: identifier, completion: completionHandler)
+func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
+        Drivit.shared.handleEventsForBackgroundURLSession(withIdentifier: identifier, completion: completionHandler)
+}
+```
+
+And finally add the following code when your app become active:
+```swift
+func applicationDidBecomeActive(_ application: UIApplication) {
+        Drivit.shared.applicationDidWake(withOptions: nil)
+}
 ```
 
 #### 2. Login/signup your user into the SDK
