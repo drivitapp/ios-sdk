@@ -1,5 +1,5 @@
 <p align="center">
-  <img height="200" src="logo.png" />
+  <img height="280" src="web/logo.jpg" />
 </p>
 
 # Drivit
