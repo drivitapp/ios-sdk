@@ -2,7 +2,7 @@
 //  Drivit.h
 //  Drivit
 //
-//  Created by Adão Rodrigues on 24/07/2018.
+//  Created by Gonçalo Rodrigues Braz Frade on 04/05/18.
 //  Copyright © 2018 Drivit. All rights reserved.
 //
 

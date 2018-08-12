@@ -1,32 +1,61 @@
 <p align="center">
-  <img height="280" src="web/logo.jpg" />
+  <img height="250" src="logo.jpg" />
 </p>
 
 # Drivit
 
-This document outlines the key steps to integrate Drivit SDK into your application and put it to work.
+[![CocoaPods Compatible](https://img.shields.io/badge/pod-1.1.0-blue.svg)](https://img.shields.io/badge/pod-1.1.0-blue.svg) [![Platform](https://img.shields.io/badge/platform-ios-lightgrey.svg)](https://img.shields.io/badge/platform-ios-lightgrey.svg)
+
+Meet Drivit, an SDK that helps you in your day-to-day activities while making you a better driver.
+
+- [Features](#features)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Documentation](https://drivitapp.github.io/ios-sdk-sample/)
+- [Usage](https://github.com/drivitapp/iOS-SDK/blob/master/USAGE.md)
+
+## Features
+
+- [x] Login
+
+## Requirements
+
+- iOS 10.0+
+- Xcode 9.0+
+
+Below is a table that shows which version of Drivit you should use for your Swift version.
+
+Swift | Drivit   
+:---- | -------- 
+4.X   | >= 1.0.0
 
 ## Installation
 
-### Swift version vs Drivit version.
-
-Below is a table that shows which version of Drivit you should use for
-your Swift version.
-
-| Swift | Drivit          |
-| ----- | --------------- |
-| 4.X   | >= 1.0.0        |
-
-
 ### CocoaPods
 
-Use the following entry in your Podfile:
+[CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
 
-```rb
-pod 'Drivit', '1.0.0'
+```bash
+$ gem install cocoapods
 ```
 
-Then run `pod install`.
+To integrate Drivit into your Xcode project using CocoaPods, specify it in your `Podfile`:
+
+```ruby
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '10.0'
+use_frameworks!
+
+target '<Your Target Name>' do
+    pod 'Drivit', '~> 1.1.0'
+end
+```
+
+Then, run the following command:
+
+```bash
+$ pod install
+```
 
 ### Manually
 
@@ -42,65 +71,6 @@ If you are using carthage/cocoapods add "MagicalRecord" to your dependency tree.
 
 With these three steps, your app should be already compiling the Drivit SDK. Now let's put it to work
 
-### Usage
+## License
 
-#### 1. Add the the following methods to your app delegate.
-Add the following code to your application:
-```swift
-func application(_ application: UIApplication,
-                   didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-
-        Drivit.shared.register(withOptions: launchOptions)
-        application.registerForRemoteNotifications()
-
-        return true
-}
-```
-Next add the following code to your application:
-```swift
-func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
-        Drivit.shared.handleEventsForBackgroundURLSession(withIdentifier: identifier, completion: completionHandler)
-}
-```
-
-And finally add the following code when your app become active:
-```swift
-func applicationDidBecomeActive(_ application: UIApplication) {
-        Drivit.shared.applicationDidWake(withOptions: nil)
-}
-```
-
-#### 2. Login/signup your user into the SDK
-You have to login the user into the SDK before it starts recording trips. To do so, create an instance of the ```DIAuth``` object and provide it with the info of your user
-
-```swift
-let simple = DIAuth.regular(email: "email", password: "password")
-// OR
-let advanced = DIAuth.advance(secret: "secret")
-            
-Drivit.shared.login(auth: simple)
-// OR
-Drivit.shared.signup(auth: simple) { result in                
-        switch(result) {
-        case .success(var user): 
-            print("Welcome " + user.firstName)
-        case .error(var error): 
-        print("An error ocurred: " + error.localizedDescription)
-}
-```
-
-#### 3. To start recording a trip
-After you login you can start a trip by running the following code:
-
-```swift
-Drivit.shared.forceTripStart()
-```
-
-
-And that is it! Safe trips!
-
-**The Drivit Team**
-
-
-
-P.S. You can see the complete reference documentation [here](https://drivitapp.github.io/ios-sdk-sample/)
+Copyright (c) 2018 Bahub Business Analysis Systems, Lda. [See LICENSE](https://github.com/drivitapp/iOS-core/blob/master/LICENSE) for details.
