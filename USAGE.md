@@ -45,7 +45,16 @@ Drivit.shared.signup(auth: simple) { result in
 }
 ```
 
-#### 3. To start recording a trip
+#### 3. Push Notifications
+```swift
+func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+    // Validate if the push notification received
+    // is supposed to be handle by the SDK
+    Drivit.shared.didReceiveRemoteNotification(userInfo: userInfo, completionHandler: completionHandler)
+}
+```
+
+#### 4. To start recording a trip
 After you login you can start a trip by running the following code:
 ```swift
 Drivit.shared.forceTripStart()
