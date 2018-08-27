@@ -4,7 +4,7 @@
 
 # Drivit
 
-[![CocoaPods Compatible](https://img.shields.io/badge/pod-1.2.0-blue.svg)](https://img.shields.io/badge/pod-1.2.0-blue.svg) [![Platform](https://img.shields.io/badge/platform-ios-lightgrey.svg)](https://img.shields.io/badge/platform-ios-lightgrey.svg)
+[![CocoaPods Compatible](https://img.shields.io/badge/Pod-1.3.0-blue.svg)](https://img.shields.io/badge/Pod-1.3.0-blue.svg) [![Platform](https://img.shields.io/badge/platform-ios-lightgrey.svg)](https://img.shields.io/badge/platform-ios-lightgrey.svg)
 
 Meet Drivit, an SDK that helps you in your day-to-day activities while making you a better driver.
 
@@ -26,7 +26,7 @@ Meet Drivit, an SDK that helps you in your day-to-day activities while making yo
 Below is a table that shows which version of Drivit you should use for your Swift version.
 
 Swift | Drivit   
-:---- | -------- 
+:---- | --------
 4.X   | >= 1.0.0
 
 ## Installation
@@ -47,7 +47,7 @@ platform :ios, '10.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'Drivit', '~> 1.2.0'
+    pod 'Drivit', '~> 1.3.0'
 end
 ```
 
