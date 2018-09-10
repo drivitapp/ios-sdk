@@ -4,7 +4,7 @@
 
 # Drivit
 
-[![CocoaPods Compatible](https://img.shields.io/badge/Pod-1.3.18-blue.svg)](https://img.shields.io/badge/Pod-1.3.18-blue.svg) [![Platform](https://img.shields.io/badge/platform-ios-lightgrey.svg)](https://img.shields.io/badge/platform-ios-lightgrey.svg)
+[![CocoaPods Compatible](https://img.shields.io/badge/Pod-1.3.19-blue.svg)](https://img.shields.io/badge/Pod-1.3.19-blue.svg) [![Platform](https://img.shields.io/badge/platform-ios-lightgrey.svg)](https://img.shields.io/badge/platform-ios-lightgrey.svg)
 
 Meet Drivit, an SDK that helps you in your day-to-day activities while making you a better driver.
 
@@ -47,7 +47,7 @@ platform :ios, '10.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'Drivit', '~> 1.3.18'
+    pod 'Drivit', '~> 1.3.19'
 end
 ```
 
