@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 	s.name		= 'Drivit'
-	s.version	= '1.3.17'
+	s.version	= '1.3.18'
 	s.summary	= 'A really cool SDK.'
 	s.homepage	= 'https://www.drivit.com'
 
