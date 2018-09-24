@@ -4,7 +4,7 @@
 
 # Drivit
 
-[![CocoaPods Compatible](https://img.shields.io/badge/Pod-1.3.22-blue.svg)](https://img.shields.io/badge/Pod-1.3.22-blue.svg) [![Platform](https://img.shields.io/badge/platform-ios-lightgrey.svg)](https://img.shields.io/badge/platform-ios-lightgrey.svg)
+[![CocoaPods Compatible](https://img.shields.io/badge/Pod-1.4.0-blue.svg)](https://img.shields.io/badge/Pod-1.4.0-blue.svg) [![Platform](https://img.shields.io/badge/platform-ios-lightgrey.svg)](https://img.shields.io/badge/platform-ios-lightgrey.svg)
 
 Meet Drivit, an SDK that helps you in your day-to-day activities while making you a better driver.
 
@@ -47,7 +47,7 @@ platform :ios, '10.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'Drivit', '~> 1.3.22'
+    pod 'Drivit', '~> 1.4.0'
 end
 ```
 
@@ -63,11 +63,7 @@ $ pod install
 
 To get the Drivit SDK framework contact us at support@drivit.com.
 
-#### 2. Add the dependencys needed for the Drivit SDK
-
-If you are using carthage/cocoapods add "MagicalRecord" to your dependency tree. The framework should be in the embeded frameworks of the app.
-
-#### 3. Make sure your project is running swift 4.0 or higher.
+#### 2. Make sure your project is running swift 4.0 or higher.
 
 With these three steps, your app should be already compiling the Drivit SDK. Now let's put it to work
 
