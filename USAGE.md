@@ -11,36 +11,22 @@ func application(_ application: UIApplication,
 
         return true
 }
-```
-Next add the following code to your application:
-```swift
-func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
-        Drivit.shared.handleEventsForBackgroundURLSession(withIdentifier: identifier, completion: completionHandler)
-}
-```
-
-And finally add the following code when your app become active:
-```swift
-func applicationDidBecomeActive(_ application: UIApplication) {
-        Drivit.shared.applicationDidWake(withOptions: nil)
-}
-```
 
 #### 2. Login/signup your user into the SDK
 You have to login the user into the SDK before it starts recording trips. To do so, create an instance of the ```DIAuth``` object and provide it with the info of your user
 
 ```swift
-let simple = DIAuth.regular(email: "email", password: "password")
+let simple = DILogin.regular(email: "email", password: "password")
 // OR
-let advanced = DIAuth.advance(secret: "secret")
-            
-Drivit.shared.login(auth: simple)
-// OR
-Drivit.shared.signup(auth: simple) { result in                
+let advanced = DILogin.advance(secret: "secret")
+
+let type = DIAuth.login(type: simple)
+
+Drivit.shared.auth(type: type) { result in                
         switch(result) {
-        case .success(var user): 
+        case let .success(user): 
             print("Welcome " + user.firstName)
-        case .error(var error): 
+        case let .error(error): 
         print("An error ocurred: " + error.localizedDescription)
 }
 ```
@@ -52,12 +38,6 @@ func application(_ application: UIApplication, didReceiveRemoteNotification user
     // is supposed to be handle by the SDK
     Drivit.shared.didReceiveRemoteNotification(userInfo: userInfo, completionHandler: completionHandler)
 }
-```
-
-#### 4. To start recording a trip
-After you login you can start a trip by running the following code:
-```swift
-Drivit.shared.forceTripStart()
 ```
 
 And that is it! Safe trips!
