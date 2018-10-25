@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 	s.name		= 'Drivit'
-	s.version	= '1.4.14'
+	s.version	= '1.4.15'
 	s.summary	= 'A really cool SDK.'
 	s.homepage	= 'https://www.drivit.com'
 
@@ -15,7 +15,6 @@ Pod::Spec.new do |s|
 	s.ios.vendored_frameworks	= 'Drivit.framework'
 
 	# s.framework = "UIKit"
-	# s.dependency 'MagicalRecord', '~> 2.3.3'
 
 	# s.swift_version = "4.1"
 end
