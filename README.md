@@ -13,10 +13,6 @@ Meet Drivit, an SDK that helps you in your day-to-day activities while making yo
 - [Documentation](https://drivitapp.github.io/ios-sdk-sample/)
 - [Usage](https://github.com/drivitapp/iOS-SDK/blob/master/USAGE.md)
 
-## Features
-
-- [x] Login
-
 ## Requirements
 
 - iOS 10.0+
