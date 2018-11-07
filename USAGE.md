@@ -8,12 +8,17 @@ func application(_ application: UIApplication,
 
         Drivit.shared.register(withOptions: launchOptions)
         application.registerForRemoteNotifications()
+    
+   	 	let interval = DIBackgroundFetchInterval.daily.rawValue
+    	application.setMinimumBackgroundFetchInterval(interval)
 
         return true
 }
+```
 
-#### 2. Login/signup your user into the SDK
-You have to login the user into the SDK before it starts recording trips. To do so, create an instance of the ```DIAuth``` object and provide it with the info of your user
+#### 2. Login/signup your user into the SDK.
+
+You have to login the user into the SDK before it starts recording trips. To do so, create an instance of the ```DIAuth``` object and provide it with the info of your user:
 
 ```swift
 let simple = DILogin.regular(email: "email", password: "password")
@@ -23,20 +28,36 @@ let advanced = DILogin.advance(secret: "secret")
 let type = DIAuth.login(type: simple)
 
 Drivit.shared.auth(type: type) { result in                
-        switch(result) {
+	switch(result) {
         case let .success(user): 
             print("Welcome " + user.firstName)
         case let .error(error): 
-        print("An error ocurred: " + error.localizedDescription)
+			print("An error ocurred: " + error.localizedDescription)
+	}
 }
 ```
 
 #### 3. Push Notifications
+
 ```swift
 func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
     // Validate if the push notification received
     // is supposed to be handle by the SDK
     Drivit.shared.didReceiveRemoteNotification(userInfo: userInfo, completionHandler: completionHandler)
+}
+```
+
+#### 4. Background Fetch
+
+```swift
+func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+	Drivit.shared.performFetchWithCompletionHandler { (result) in
+		switch result {
+			case .newData: completionHandler(.newData)
+            case .noData: completionHandler(.noData)
+            case .failed: completionHandler(.failed)
+		}
+	}
 }
 ```
 
