@@ -5,14 +5,18 @@ Add the following code to your application:
 ```swift
 func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-
-        Drivit.shared.register(withOptions: launchOptions)
-        application.registerForRemoteNotifications()
+    // Register Drivit SDK to handle locations and notifications events
+	Drivit.shared.register(withOptions: launchOptions)
+	application.registerForRemoteNotifications()
     
-   	 	let interval = DIBackgroundFetchInterval.daily.rawValue
-    	application.setMinimumBackgroundFetchInterval(interval)
-
-        return true
+    // Setup Google API Key
+    Drivit.shared.googleAPIKey = "YOU_API_KEY"
+    
+    // Setup background fetch interval
+	let interval = DIBackgroundFetchInterval.daily.rawValue
+	application.setMinimumBackgroundFetchInterval(interval)
+    
+	return true
 }
 ```
 
@@ -29,9 +33,9 @@ let type = DIAuth.login(type: simple)
 
 Drivit.shared.auth(type: type) { result in                
 	switch(result) {
-        case let .success(user): 
-            print("Welcome " + user.firstName)
-        case let .error(error): 
+		case let .success(user): 
+			print("Welcome " + user.firstName)
+		case let .error(error): 
 			print("An error ocurred: " + error.localizedDescription)
 	}
 }
@@ -43,7 +47,7 @@ Drivit.shared.auth(type: type) { result in
 func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
     // Validate if the push notification received
     // is supposed to be handle by the SDK
-    Drivit.shared.didReceiveRemoteNotification(userInfo: userInfo, completionHandler: completionHandler)
+	Drivit.shared.didReceiveRemoteNotification(userInfo: userInfo, completionHandler: completionHandler)
 }
 ```
 
@@ -54,8 +58,8 @@ func application(_ application: UIApplication, performFetchWithCompletionHandler
 	Drivit.shared.performFetchWithCompletionHandler { (result) in
 		switch result {
 			case .newData: completionHandler(.newData)
-            case .noData: completionHandler(.noData)
-            case .failed: completionHandler(.failed)
+			case .noData: completionHandler(.noData)
+			case .failed: completionHandler(.failed)
 		}
 	}
 }
