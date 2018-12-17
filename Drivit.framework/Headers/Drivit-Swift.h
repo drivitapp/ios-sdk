@@ -167,7 +167,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import CoreLocation;
 @import CoreMotion;
 @import Foundation;
-@import ObjectiveC;
 @import UIKit;
 #endif
 
@@ -207,28 +206,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 
 
-
-
-/// Decodes a JWT
-SWIFT_CLASS_NAMED("_JWT")
-@interface A0JWT : NSObject
-/// token header part
-@property (nonatomic, readonly, copy) NSDictionary<NSString *, id> * _Nonnull header;
-/// token body part or claims
-@property (nonatomic, readonly, copy) NSDictionary<NSString *, id> * _Nonnull body;
-/// token signature part
-@property (nonatomic, readonly, copy) NSString * _Nullable signature;
-/// value of the <code>exp</code> claim
-@property (nonatomic, readonly, copy) NSDate * _Nullable expiresAt;
-/// value of the <code>expired</code> field
-@property (nonatomic, readonly) BOOL expired;
-/// Creates a new instance of <code>A0JWT</code> and decodes the given jwt token.
-/// :param: jwtValue of the token to decode
-/// :returns: a new instance of <code>A0JWT</code> that holds the decode token
-+ (A0JWT * _Nullable)decodeWithJwt:(NSString * _Nonnull)jwtValue error:(NSError * _Nullable * _Nullable)error SWIFT_WARN_UNUSED_RESULT;
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
-@end
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
