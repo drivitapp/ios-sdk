@@ -4,9 +4,9 @@
 
 # Drivit
 
-[![CocoaPods Compatible](https://img.shields.io/badge/Pod-1.7.1-blue.svg)](https://img.shields.io/badge/Pod-1.7.1-blue.svg) [![Platform](https://img.shields.io/badge/Platform-iOS-lightgrey.svg)](https://img.shields.io/badge/Platform-iOS-lightgrey.svg)
+[![CocoaPods Compatible](https://img.shields.io/badge/Pod-1.8.0-blue.svg)](https://img.shields.io/badge/Pod-1.8.0-blue.svg) [![Platform](https://img.shields.io/badge/Platform-iOS-lightgrey.svg)](https://img.shields.io/badge/Platform-iOS-lightgrey.svg)
 
-This is a sample project that outlines the key steps to integrate the Drivit iOS SDK into your application and put it to work. Should you have any doubt, feel free to contact us at support@drivit.com
+This is a sample project that outlines the key steps to integrate the Drivit iOS SDK into your application and put it to work. Should you have any doubt, feel free to contact us at support@drivit.com.
 
 **Getting Started:**
 
@@ -50,7 +50,7 @@ platform :ios, '10.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'Drivit', '~> 1.7.1'
+    pod 'Drivit', '~> 1.8.0'
 end
 ```
 
@@ -61,8 +61,6 @@ $ pod install
 ```
 
 ### Manually
-
-#### 1. Add the Drivit SDK framework to your app bundle
 
 To get the Drivit SDK framework contact us at support@drivit.com.
 
@@ -84,13 +82,7 @@ Add the following capabilities to your Xcode project:
 Let's start by adding the following code to your App Delegate so Drivit is able to know the reason why the app was launched (if any), such as notifications and locations update:
 ```swift
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-	...
-
-	// Register Drivit SDK to handle locations and notifications events
 	Drivit.shared.register(withOptions: launchOptions)
-	application.registerForRemoteNotifications()
-
-	...
 
 	return true
 }
@@ -98,43 +90,33 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 
 
 #### 2. Update the SDK with Background App Refresh
-After that, we need to setup the Background App Refresh interval. This allow the SDK to run periodically in the background so that it can update its content. To do so, lets include the following code in your App Delegate:
-```swift
-func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-	...
-
-	// Setup background fetch interval
-	let interval = DIBackgroundFetchInterval.daily.rawValue
-	application.setMinimumBackgroundFetchInterval(interval)
-
-	...
-
-	return true
-}
-```
-
-After that, you are able to subscribe to the following delegate so we can let you know if new content has arrived during those executions:
-
+After that, we need to setup the Background App Refresh. This allow the SDK to run periodically in the background so that it can update its content. To do so, let's include the following code in your App Delegate:
 ```swift
 func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
 	Drivit.shared.performFetchWithCompletionHandler { (result) in
 		switch result {
-			case .newData: completionHandler(.newData)
-			case .noData: completionHandler(.noData)
-			case .failed: completionHandler(.failed)
+			case .newData:
+				completionHandler(.newData)
+			case .noData:
+				completionHandler(.noData)
+			case .failed:
+				completionHandler(.failed)
 		}
 	}
 }
 ```
 
 
-#### 3. Add relevant Google Maps API Keys
+#### 3. Push Notifications
 
-To provide an improved user experience, Drivit uses Google APIs. Feel free to set this key where it better suits your architecture:
+To keep your content up to date, it is important to subscribe to push notifications. This way, every time we have some new content/data ready to improve user experience, we can let the app know:
 
 ```swift
-// Setup Google API Key
-Drivit.shared.googleAPIKey = "YOU_API_KEY"
+func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+    // Validate if the push notification received
+    // is supposed to be handle by the SDK
+	Drivit.shared.didReceiveRemoteNotification(userInfo: userInfo, completionHandler: completionHandler)
+}
 ```
 
 
@@ -161,17 +143,15 @@ Drivit.shared.auth(type: type) { result in
 ```
 
 
-#### 5. Push Notifications
+#### 5. Add relevant Google Maps API Keys
 
-To keep your content up to date, it is important to subscribe to push notifications. This way, every time we have some new content/data ready to improve user experience, we can let the app know:
+To provide an improved user experience, Drivit uses Google APIs. Feel free to set this key where it better suits your architecture:
 
 ```swift
-func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-    // Validate if the push notification received
-    // is supposed to be handle by the SDK
-	Drivit.shared.didReceiveRemoteNotification(userInfo: userInfo, completionHandler: completionHandler)
-}
+// Setup Google API Key
+Drivit.shared.googleAPIKey = "YOU_API_KEY"
 ```
+
 
 And that is it! Safe trips!
 
@@ -179,7 +159,7 @@ The Drivit Team
 
 ## Documentation
 
-You can see the complete reference documentation [here](https://drivitapp.github.io/ios-sdk-sample/)
+You can see the complete reference documentation [here](https://drivitapp.github.io/ios-sdk-sample/).
 
 ## License
 
