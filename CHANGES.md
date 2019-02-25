@@ -1,6 +1,11 @@
 # Change log
 In this section you can find what has changed from version to version.
 
+## 1.9.0
+- Improves location tracking battery consumption;
+- Internal improvements;
+- Minor bug fixes;
+
 ## 1.8.0
 - Improves snap to road request;
 - Internal improvements;
