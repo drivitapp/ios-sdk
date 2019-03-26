@@ -4,7 +4,7 @@
 
 # Drivit
 
-[![CocoaPods Compatible](https://img.shields.io/badge/Pod-1.9.0-blue.svg)](https://img.shields.io/badge/Pod-1.9.0-blue.svg) [![Platform](https://img.shields.io/badge/Platform-iOS-lightgrey.svg)](https://img.shields.io/badge/Platform-iOS-lightgrey.svg)
+[![CocoaPods Compatible](https://img.shields.io/badge/Pod-1.9.1-blue.svg)](https://img.shields.io/badge/Pod-1.9.1-blue.svg) [![Platform](https://img.shields.io/badge/Platform-iOS-lightgrey.svg)](https://img.shields.io/badge/Platform-iOS-lightgrey.svg)
 
 This is a sample project that outlines the key steps to integrate the Drivit iOS SDK into your application and put it to work. Should you have any doubt, feel free to contact us at support@drivit.com.
 
@@ -50,7 +50,7 @@ platform :ios, '10.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'Drivit', '~> 1.9.0'
+    pod 'Drivit', '~> 1.9.1'
 end
 ```
 
