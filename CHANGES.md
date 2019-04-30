@@ -2,7 +2,7 @@
 
   In this section you can find what has changed from version to version.
 
-  ## 1.9.1
+  ## 1.9.1-beta
 
   - Avoids user's flights recording;
   - Detects if the device is connected to a vehicle for better recording;
