@@ -4,7 +4,7 @@
 
 # Drivit
 
-[![CocoaPods Compatible](https://img.shields.io/badge/Pod-1.9.1-blue.svg)](https://img.shields.io/badge/Pod-1.9.1-blue.svg) [![Platform](https://img.shields.io/badge/Platform-iOS-lightgrey.svg)](https://img.shields.io/badge/Platform-iOS-lightgrey.svg)
+[![CocoaPods Compatible](https://img.shields.io/badge/Pod-2.0.0-blue.svg)](https://img.shields.io/badge/Pod-2.0.0-blue.svg) [![Platform](https://img.shields.io/badge/Platform-iOS-lightgrey.svg)](https://img.shields.io/badge/Platform-iOS-lightgrey.svg)
 
 This is a sample project that outlines the key steps to integrate the Drivit iOS SDK into your application and put it to work. Should you have any doubt, feel free to contact us at support@drivit.com.
 
@@ -50,7 +50,7 @@ platform :ios, '10.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'Drivit', '~> 1.9.1-beta'
+    pod 'Drivit', '~> 2.0.0'
 end
 ```
 
@@ -78,7 +78,25 @@ Add the following capabilities to your Xcode project:
 
 ## Usage
 
-#### 1. Let's prepare your app delegate
+#### 1. Add the Drivit API Key to the Plist source code
+
+Add the following piece of code to your app's plist file:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+...
+<key>DRIVIT_API_KEY</key>
+<string>YOUR_API_KEY</string>
+...
+</dict>
+</plist>
+```
+
+
+#### 2. Let's prepare your app delegate
 Let's start by adding the following code to your App Delegate so Drivit is able to know the reason why the app was launched (if any), such as notifications and locations update:
 ```swift
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -89,7 +107,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 ```
 
 
-#### 2. Update the SDK with Background App Refresh
+#### 3. Update the SDK with Background App Refresh
 After that, we need to setup the Background App Refresh. This allow the SDK to run periodically in the background so that it can update its content. To do so, let's include the following code in your App Delegate:
 ```swift
 func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
@@ -107,7 +125,7 @@ func application(_ application: UIApplication, performFetchWithCompletionHandler
 ```
 
 
-#### 3. Push Notifications
+#### 4. Push Notifications
 
 To keep your content up to date, it is important to subscribe to push notifications. This way, every time we have some new content/data ready to improve user experience, we can let the app know:
 
@@ -120,7 +138,7 @@ func application(_ application: UIApplication, didReceiveRemoteNotification user
 ```
 
 
-#### 4. Login/signup your user
+#### 5. Login/signup your user
 
 Now we have everything ready, we have to login the user into the SDK before it starts recording trips.
 To do so, create an instance of the ```DIAuth``` object and provide it with the info of your user:
@@ -143,12 +161,11 @@ Drivit.shared.auth(type: type) { result in
 ```
 
 
-#### 5. Add relevant Google Maps API Keys
+#### 6. Add relevant Google Maps API Keys
 
 To provide an improved user experience, Drivit uses Google APIs. Feel free to set this key where it better suits your architecture:
 
 ```swift
-// Setup Google API Key
 Drivit.shared.googleAPIKey = "YOU_API_KEY"
 ```
 
