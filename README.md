@@ -4,7 +4,7 @@
 
 # Drivit
 
-[![CocoaPods Compatible](https://img.shields.io/badge/Pod-2.0.0-blue.svg)](https://img.shields.io/badge/Pod-2.0.0-blue.svg) [![Platform](https://img.shields.io/badge/Platform-iOS-lightgrey.svg)](https://img.shields.io/badge/Platform-iOS-lightgrey.svg)
+[![CocoaPods Compatible](https://img.shields.io/badge/Pod-2.0.1-blue.svg)](https://img.shields.io/badge/Pod-2.0.1-blue.svg) [![Platform](https://img.shields.io/badge/Platform-iOS-lightgrey.svg)](https://img.shields.io/badge/Platform-iOS-lightgrey.svg)
 
 This is a sample project that outlines the key steps to integrate the Drivit iOS SDK into your application and put it to work. Should you have any doubt, feel free to contact us at support@drivit.com.
 
@@ -29,7 +29,7 @@ Below is a table that shows which version of Drivit you should use for your Swif
 
 Swift | Drivit   
 :---- | --------
-4.X   | >= 1.0.0
+4.0   | >= 1.0.0
 
 
 ## Installation
@@ -50,7 +50,7 @@ platform :ios, '10.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'Drivit', '~> 2.0.0'
+    pod 'Drivit', '~> 2.0.1'
 end
 ```
 
