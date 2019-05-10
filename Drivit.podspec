@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 	s.name		= 'Drivit'
-	s.version	= '2.0.1'
+	s.version	= '2.0.2'
 	s.summary	= 'A really cool SDK.'
 	s.homepage	= 'https://www.drivit.com'
 
@@ -10,6 +10,7 @@ Pod::Spec.new do |s|
 	s.source	= { :git => 'https://github.com/drivitapp/iOS-SDK.git', :tag => s.version }
 
 	s.platform	= :ios
+	# s.static_framework = true
 
 	s.ios.deployment_target		= '10.0'
 	s.ios.vendored_frameworks	= 'Drivit.framework'

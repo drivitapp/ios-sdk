@@ -2,6 +2,11 @@
 
 In this section you can find what has changed from version to version.
 
+## 2.0.2
+
+- Compiles over Xcode 10.2.1
+- Fixes trips' data base access call
+
 ## 2.0.1
 
 - Compiles over Xcode 10.1
