@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 	s.name		= 'Drivit'
-	s.version	= '2.0.2'
+	s.version	= '2.0.3'
 	s.summary	= 'A really cool SDK.'
 	s.homepage	= 'https://www.drivit.com'
 
@@ -8,14 +8,18 @@ Pod::Spec.new do |s|
 	s.author	= { 'Adão Rodrigues' => 'adao.rodrigues@drivit.com' }
 
 	s.source	= { :git => 'https://github.com/drivitapp/iOS-SDK.git', :tag => s.version }
+	#s.source 	= { :path => 'Drivit.framework' }
 
 	s.platform	= :ios
-	# s.static_framework = true
+	#s.static_framework = true
 
 	s.ios.deployment_target		= '10.0'
 	s.ios.vendored_frameworks	= 'Drivit.framework'
 
+	#s.dependency 'Firebase/Messaging'
+	#s.dependency 'Firebase/Analytics'
+
 	# s.framework = "UIKit"
 
-	# s.swift_version = "4.1"
+	s.swift_version = "4.0"
 end
