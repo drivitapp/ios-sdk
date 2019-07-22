@@ -4,7 +4,7 @@
 
 # Drivit
 
-[![CocoaPods Compatible](https://img.shields.io/badge/Pod-2.0.3-blue.svg)](https://img.shields.io/badge/Pod-2.0.3-blue.svg) [![Platform](https://img.shields.io/badge/Platform-iOS-lightgrey.svg)](https://img.shields.io/badge/Platform-iOS-lightgrey.svg)
+[![CocoaPods Compatible](https://img.shields.io/badge/Pod-3.0.1-blue.svg)](https://img.shields.io/badge/Pod-3.0.1-blue.svg) [![Platform](https://img.shields.io/badge/Platform-iOS-lightgrey.svg)](https://img.shields.io/badge/Platform-iOS-lightgrey.svg)
 
 This is a sample project that outlines the key steps to integrate the Drivit iOS SDK into your application and put it to work. Should you have any doubt, feel free to contact us at support@drivit.com.
 
@@ -50,7 +50,7 @@ platform :ios, '10.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'Drivit', '~> 2.0.3'
+    pod 'Drivit', '~> 3.0.1'
 end
 ```
 
@@ -127,12 +127,14 @@ func application(_ application: UIApplication, performFetchWithCompletionHandler
 
 #### 4. Push Notifications
 
-To keep your content up to date, it is important to subscribe to push notifications. This way, every time we have some new content/data ready to improve user experience, we can let the app know:
+To keep your content up to date, it is important to register the device token and subscribe to push notifications. This way, every time we have some new content/data ready to improve user experience, we can let the app know:
 
 ```swift
+func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+	Drivit.shared.registerForRemoteNotifications(withDeviceToken: deviceToken)
+}
+
 func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-    // Validate if the push notification received
-    // is supposed to be handle by the SDK
 	Drivit.shared.didReceiveRemoteNotification(userInfo: userInfo, completionHandler: completionHandler)
 }
 ```

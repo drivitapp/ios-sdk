@@ -230,6 +230,10 @@ SWIFT_CLASS("_TtC6Drivit15DIVehicleMotion")
 
 
 
+
+
+
+
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
 #endif
@@ -443,6 +447,10 @@ SWIFT_CLASS("_TtC6Drivit15DIVehicleMotion")
 @interface DIVehicleMotion : NSObject
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
+
+
+
+
 
 
 
@@ -698,6 +706,10 @@ SWIFT_CLASS("_TtC6Drivit15DIVehicleMotion")
 
 
 
+
+
+
+
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
 #endif
@@ -911,6 +923,10 @@ SWIFT_CLASS("_TtC6Drivit15DIVehicleMotion")
 @interface DIVehicleMotion : NSObject
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
+
+
+
+
 
 
 
