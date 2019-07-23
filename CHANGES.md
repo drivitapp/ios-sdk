@@ -1,4 +1,4 @@
-- # Change log
+# Change log
 
 In this section you can find what has changed from version to version.
 
