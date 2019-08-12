@@ -1,9 +1,18 @@
-# Change log
+- # Change log
 
 In this section you can find what has changed from version to version.
 
-## 3.0.1
+## 3.1.3
 
+- Fixes push notification setup;
+- Fixes risk score request;
+- Improves permissions object listener
+
+## 3.1.0
+
+- Improves recording performance;
+- Implements new pinning validation;
+- Creates new DIPermissions object to listen system settings changes;
 - Fixes some minor issues;
 
 ## 3.0.0
@@ -14,6 +23,7 @@ In this section you can find what has changed from version to version.
 - Improves database access;
 - Updates authentication error cases;
 - Fixes authentication process where in some situation user's car might disappeared;
+- Fixes some minor issues;
 
 ## 2.0.3
 
