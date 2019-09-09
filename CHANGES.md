@@ -7,6 +7,7 @@ In this section you can find what has changed from version to version.
 - Improves setting changes listener;
 - Improves sdk logging and performance;
 - Improves files synchronization;
+- Fully tested against the last available version of iOS 13 (iOS 13.1, Beta 2);
 
 ## 3.1.3
 
