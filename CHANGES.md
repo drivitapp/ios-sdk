@@ -1,12 +1,18 @@
-- # Change log
+# Change log
 
 In this section you can find what has changed from version to version.
+
+## 3.2.0
+
+- Improves setting changes listener;
+- Improves sdk logging and performance;
+- Improves files synchronization;
 
 ## 3.1.3
 
 - Fixes push notification setup;
 - Fixes risk score request;
-- Improves permissions object listener
+- Improves permissions object listener;
 
 ## 3.1.0
 
@@ -31,12 +37,12 @@ In this section you can find what has changed from version to version.
 
 ## 2.0.2
 
-- Compiles over Xcode 10.2.1
-- Fixes trips' data base access call
+- Compiles over Xcode 10.2.1;
+- Fixes trips' data base access call;
 
 ## 2.0.1
 
-- Compiles over Xcode 10.1
+- Compiles over Xcode 10.1;
 
 ## 2.0.0
 
@@ -49,9 +55,9 @@ In this section you can find what has changed from version to version.
   - Detects if the device is connected to a vehicle for better recording;
   - Provides public method to enable debug mode;
   - Includes three additional methods:
-    - fuel consumption
-    - fuel cost
-    - is waiting for consumption
+    - fuel consumption;
+    - fuel cost;
+    - is waiting for consumption;
   - Internal improvements;
 - Minor bug fixes;
   
