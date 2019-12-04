@@ -2,35 +2,9 @@
 
 In this section you can find what has changed from version to version.
 
-## 3.2.0
+## 2.0.4
 
-- Improves setting changes listener;
-- Improves sdk logging and performance;
-- Improves files synchronization;
-- Fully tested against the last available version of iOS 13 (iOS 13.1, Beta 2);
-
-## 3.1.3
-
-- Fixes push notification setup;
-- Fixes risk score request;
-- Improves permissions object listener;
-
-## 3.1.0
-
-- Improves recording performance;
-- Implements new pinning validation;
-- Creates new DIPermissions object to listen system settings changes;
-- Fixes some minor issues;
-
-## 3.0.0
-
-- Improves pinning mechanism;
-- Improves push notification configuration;
-- Improves recording efficiency;
-- Improves database access;
-- Updates authentication error cases;
-- Fixes authentication process where in some situation user's car might disappeared;
-- Fixes some minor issues;
+- Compiles over Xcode 11.2.1;
 
 ## 2.0.3
 
