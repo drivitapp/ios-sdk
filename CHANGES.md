@@ -6,23 +6,6 @@ In this section you can find what has changed from version to version.
 
 - The purpose of this release is to allow clients which still use the Drivit SDK version 2.x to start migrating their apps to xcode 11.2.1 without having to deal with changes to the Drivit SDK
 
-## 3.4.0
-
-- Improves trip recording;
-- Updates documentation;
-- Compiles over Xcode 11;
-- Fixes some minor issues;
-
-## 3.3.1
-
-- Fixes some minor issues;
-
-## 3.3.0
-
-- Improves trip recording;
-- Improves trip's origin and destination;
-- Fixes some minor issues;
-
 ## 3.2.0
 
 - Improves setting changes listener;
