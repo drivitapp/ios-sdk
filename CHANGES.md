@@ -24,12 +24,6 @@ In this section you can find what has changed from version to version.
   - `.didUpdateReportNotification`
   - `.didChangeTripsWaitingForSyncNotification`
 - `DIPermissions` object to listen system settings changes is now better than before. Use `.start` and `.stop` calls based on your app needs;
-- - `didStartTrip`
-  - `didFinishTrip`
-  - `didRestartTrip`
-  - `didChangeTrip`
-  - `didUpdateReport`
-  - `didChangeTripsWaitingForSync`
 - Improves overall communication with Drivit SDK;
 - Improves overall performance;
 
