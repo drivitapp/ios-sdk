@@ -2,9 +2,57 @@
 
 In this section you can find what has changed from version to version.
 
+## 4.0.0-alpha1
+
+- Drivit public API is now splitted into 5 main classes:
+  - `.authentication` (allows you to check if user is logged in and call methods such as login & signup);
+  - `.settings` (allows you to set app optional properties like googleAPIKey);
+  - `.default` (allows you to setup app methods like push notifications and enable debug mode;
+  - `.cloud` (allows you to perform API requests such as carModels, carMakes & carVersions);
+  - `.user` (allows you to request user info such as trips, current vehicle and update user preferences);
+- User preferences can be accessed through `.user.preferences` and it allows you to set well known properties such as `charging rules` and `data plan`. A new property called `isBeaconAssistedTripRecordingEnabled` is available to enable trip's recording using beacons;
+- `.authentication` class allows you to delete you account by calling `.removeAccount` method;
+- `Signup` and `Login` methods are now called independently (`Drivit.shared.auth(type: )` was removed).
+- `.signup` method gives you the possibility to set the user's region when signing up using a DIRegion object. E.g. `DIRegion(countryCode: "code1", countrySubclass: ["region1", "region2"]))`
+- Trip methods are now called directly in the objects. If you want to update rejected reason or fuel consumption, you can now set those properties directly. E.g. `trip.rejectedReason = ...` instead of calling `Drivit.shared.rejection(reason: Int, guid: String)`.
+- `Origin` and `Destination` do not require a class editor anymore. Feel free to set those properties directly in the object as well without having to call a save button;
+- Trip changes are now released to the app through a notification (and not through a delegate anymore). This way you can listen for trip changes in any part of your app. Changes are propagated directly to the objects you may have in memory. No update is required;
+  - `.didStartTripNotification`
+  - `.didFinishTripNotification`
+  - `.didRestartTripNotification`
+  - `.didChangeTripNotification`
+  - `.didUpdateReportNotification`
+  - `.didChangeTripsWaitingForSyncNotification`
+- `DIPermissions` object to listen system settings changes is now better than before. Use `.start` and `.stop` calls based on your app needs;
+- - `didStartTrip`
+  - `didFinishTrip`
+  - `didRestartTrip`
+  - `didChangeTrip`
+  - `didUpdateReport`
+  - `didChangeTripsWaitingForSync`
+- Improves overall communication with Drivit SDK;
+- Improves overall performance;
+
 ## 2.0.4
 
 - The purpose of this release is to allow clients which still use the Drivit SDK version 2.x to start migrating their apps to xcode 11.2.1 without having to deal with changes to the Drivit SDK
+
+## 3.4.0
+
+- Improves trip recording;
+- Updates documentation;
+- Compiles over Xcode 11;
+- Fixes some minor issues;
+
+## 3.3.1
+
+- Fixes some minor issues;
+
+## 3.3.0
+
+- Improves trip recording;
+- Improves trip's origin and destination;
+- Fixes some minor issues;
 
 ## 3.2.0
 

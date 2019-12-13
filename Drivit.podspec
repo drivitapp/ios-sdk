@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 	s.name		= 'Drivit'
-	s.version	= '2.0.4'
+	s.version	= '4.0.0-alpha1'
 	s.summary	= 'A really cool SDK.'
 	s.homepage	= 'https://www.drivit.com'
 
@@ -8,6 +8,7 @@ Pod::Spec.new do |s|
 	s.author	= { 'Adão Rodrigues' => 'adao.rodrigues@drivit.com' }
 
 	s.source	= { :git => 'https://github.com/drivitapp/iOS-SDK.git', :tag => s.version }
+	#s.source	= { :git => 'https://github.com/drivitapp/ios-sdk-sample', :tag => s.version }
 	#s.source 	= { :path => 'Drivit.framework' }
 
 	s.platform	= :ios
@@ -17,5 +18,5 @@ Pod::Spec.new do |s|
 
 	s.dependency 'Firebase/Core'
 
-	s.swift_version = "4.0"
+	s.swift_version = "5.0"
 end
