@@ -103,7 +103,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 After that, we need to setup the Background App Refresh. This allow the SDK to run periodically in the background so that it can update its content. To do so, let's include the following code in your App Delegate:
 ```swift
 func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-	Drivit.default.performFetchWithCompletionHandler { (result) in
+	Drivit.default.performFetch { (result) in
 		switch result {
 			case .newData:
 				completionHandler(.newData)
