@@ -2,6 +2,11 @@
 
 In this section you can find what has changed from version to version.
 
+## 4.0.0-alpha2
+
+- Fixes electricity price value on target vehicle consumption data;
+- Fixes some minor issues;
+
 ## 4.0.0-alpha1
 
 - Drivit public API is now splitted into 5 main classes:
