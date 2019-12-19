@@ -2,6 +2,13 @@
 
 In this section you can find what has changed from version to version.
 
+## 4.0.0-alpha3
+
+- Fixes trips target vehicle consumption data update;
+- Fixes trips report;
+- Fixes target vehicle details update;
+- Creates DIRegion public init;
+
 ## 4.0.0-alpha2
 
 - Fixes electricity price value on target vehicle consumption data;
