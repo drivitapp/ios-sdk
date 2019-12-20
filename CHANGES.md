@@ -2,6 +2,12 @@
 
 In this section you can find what has changed from version to version.
 
+## 4.0.0-alpha4
+
+- Improves current vehicle update;
+- Fixes charging rules update;
+- Fixes minor issues;
+
 ## 4.0.0-alpha3
 
 - Fixes trips target vehicle consumption data update;
