@@ -4,7 +4,7 @@
 
 # Drivit
 
-[![Version](https://img.shields.io/badge/Pod-4.0.0--alpha4-blue.svg?style=flat)](https://github.com/drivitapp/ios-sdk-sample/releases/latest) [![CocoaPods](https://img.shields.io/badge/CocoaPods-compatible-success?style=flat)](https://github.com/CocoaPods/CocoaPods) [![Swift 5.0](https://img.shields.io/badge/Swift-5.0-orange?style=flat)](https://developer.apple.com/swift/) [![Platform](https://img.shields.io/badge/Platform-iOS-lightgrey.svg?style=flat)](https://img.shields.io/badge/Platform-iOS-lightgrey.svg)
+[![Version](https://img.shields.io/badge/Pod-4.0.0--alpha5-blue.svg?style=flat)](https://github.com/drivitapp/ios-sdk-sample/releases/latest) [![CocoaPods](https://img.shields.io/badge/CocoaPods-compatible-success?style=flat)](https://github.com/CocoaPods/CocoaPods) [![Swift 5.0](https://img.shields.io/badge/Swift-5.0-orange?style=flat)](https://developer.apple.com/swift/) [![Platform](https://img.shields.io/badge/Platform-iOS-lightgrey.svg?style=flat)](https://img.shields.io/badge/Platform-iOS-lightgrey.svg)
 
 This is a sample project that outlines the key steps to integrate the Drivit iOS SDK into your application and put it to work. Should you have any doubt, feel free to contact us at support@drivit.com.
 
@@ -21,7 +21,7 @@ This is a sample project that outlines the key steps to integrate the Drivit iOS
 ## Requirements
 
 - iOS 10.0+
-- Xcode 11.2.1
+- Xcode 11.3.0
 
 Below is a table that shows which version of Drivit you should use for your Swift version.
 
@@ -58,7 +58,7 @@ platform :ios, '10.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'Drivit', '~> 4.0.0-alpha4'
+    pod 'Drivit', '~> 4.0.0-alpha5'
 end
 ```
 

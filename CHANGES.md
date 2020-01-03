@@ -2,6 +2,10 @@
 
 In this section you can find what has changed from version to version.
 
+## 4.0.0-alpha5
+
+- Fixes minor issues;
+
 ## 4.0.0-alpha4
 
 - Improves current vehicle update;
@@ -32,6 +36,7 @@ In this section you can find what has changed from version to version.
 - `.authentication` class allows you to delete you account by calling `.removeAccount` method;
 - `Signup` and `Login` methods are now called independently (`Drivit.shared.auth(type: )` was removed).
 - `.signup` method gives you the possibility to set the user's region when signing up using a DIRegion object. E.g. `DIRegion(countryCode: "code1", countrySubclass: ["region1", "region2"]))`
+- All PT references in the vehicle details object have been replaced by an EN reference;
 - Trip methods are now called directly in the objects. If you want to update rejected reason or fuel consumption, you can now set those properties directly. E.g. `trip.rejectedReason = ...` instead of calling `Drivit.shared.rejection(reason: Int, guid: String)`.
 - `Origin` and `Destination` do not require a class editor anymore. Feel free to set those properties directly in the object as well without having to call a save button;
 - Trip changes are now released to the app through a notification (and not through a delegate anymore). This way you can listen for trip changes in any part of your app. Changes are propagated directly to the objects you may have in memory. No update is required;
