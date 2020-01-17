@@ -2,8 +2,14 @@
 
 In this section you can find what has changed from version to version.
 
+## 4.0.0-beta
+
+- Adds WLTP properties on vehicle details;
+- Fixes minor issues;
+
 ## 4.0.0-alpha5
 
+- The SDK now returns different results as a function of the region of the user as set by Drivit Authentication Login & Signup. In particular, in the APIs related to vehicle setup;
 - Fixes minor issues;
 
 ## 4.0.0-alpha4
