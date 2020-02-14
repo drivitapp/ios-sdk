@@ -1,15 +1,15 @@
 Pod::Spec.new do |s|
 	s.name		= 'Drivit'
-	s.version	= '4.0.0-beta'
+	s.version	= '4.0.0-beta1'
 	s.summary	= 'A really cool SDK.'
 	s.homepage	= 'https://www.drivit.com'
 
 	s.license	= { :type => 'LICENSE', :file => 'LICENSE' }
 	s.author	= { 'Adão Rodrigues' => 'adao.rodrigues@drivit.com' }
 
-	s.source	= { :git => 'https://github.com/drivitapp/iOS-SDK.git', :tag => s.version }
+	#s.source	= { :git => 'https://github.com/drivitapp/iOS-SDK.git', :tag => s.version }
 	#s.source	= { :git => 'https://github.com/drivitapp/ios-sdk-sample', :tag => s.version }
-	#s.source 	= { :path => 'Drivit.framework' }
+	s.source 	= { :path => 'Drivit.framework' }
 
 	s.platform	= :ios
 
