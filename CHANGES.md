@@ -2,6 +2,10 @@
 
 In this section you can find what has changed from version to version.
 
+## 4.0.0-beta3
+
+- Fixes logout call;
+
 ## 4.0.0-beta2
 
 - Fixes framework string version value;
