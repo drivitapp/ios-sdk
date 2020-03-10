@@ -2,6 +2,10 @@
 
 In this section you can find what has changed from version to version.
 
+## 4.0.0
+
+- Updates SDK environments;
+
 ## 4.0.0-beta4
 
 - Fixes battery levels report when the user finishes a trip;
