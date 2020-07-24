@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 	s.resource_bundles = { 'Resources' => ['Drivit.bundle'] }
 
 	s.source = { :git => 'https://github.com/drivitapp/iOS-SDK.git', :tag => s.version }
-	s.xcconfig = { 'SWIFT_INCLUDE_PATHS' => '$(inherited) "${PODS_ROOT}/Drivit/Frameworks" "${PODS_CONFIGURATION_BUILD_DIR}/Drivit"' }
+	s.xcconfig = { 'SWIFT_INCLUDE_PATHS' => '$(inherited) "${PODS_ROOT}/Drivit/Drivit.framework" "${PODS_CONFIGURATION_BUILD_DIR}/Drivit"' }
 
 	s.dependency 'FirebaseMessaging', '4.3.1'
 end
