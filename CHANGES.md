@@ -2,6 +2,10 @@
 
 In this section you can find what has changed from version to version.
 
+## 4.1.0-beta1	
+
+- Compiles over Xcode 12 beta;
+
 ## 4.0.0
 
 - Updates SDK environments;

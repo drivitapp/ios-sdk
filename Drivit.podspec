@@ -1,22 +1,22 @@
 Pod::Spec.new do |s|
 	s.name		= 'Drivit'
-	s.version	= '4.0.0'
+	s.version	= '4.1.0-beta1'
+
 	s.summary	= 'A really cool SDK.'
 	s.homepage	= 'https://www.drivit.com'
-
 	s.license	= { :type => 'LICENSE', :file => 'LICENSE' }
 	s.author	= { 'Adão Rodrigues' => 'adao.rodrigues@drivit.com' }
 
-	s.source	= { :git => 'https://github.com/drivitapp/iOS-SDK.git', :tag => s.version }
-	#s.source	= { :git => 'https://github.com/drivitapp/ios-sdk-sample', :tag => s.version }
-	#s.source 	= { :path => 'Drivit.framework' }
-
 	s.platform	= :ios
-
-	s.ios.deployment_target		= '10.0'
-	s.ios.vendored_frameworks	= 'Drivit.framework'
-
-	s.dependency 'Firebase/Core'
-
+	s.requires_arc = true
 	s.swift_version = "5.0"
+	s.static_framework = true
+	s.ios.deployment_target = '10.0'
+
+	s.source = { :git => 'https://github.com/drivitapp/iOS-SDK.git', :tag => s.version }
+
+	s.resource_bundles = { 'Resources' => ['Drivit.bundle'] }
+	s.xcconfig = { 'SWIFT_INCLUDE_PATHS' => '$(inherited) "${PODS_ROOT}/Drivit/Frameworks" "${PODS_CONFIGURATION_BUILD_DIR}/Drivit"' }
+
+	s.dependency 'FirebaseMessaging', '4.3.1'
 end
