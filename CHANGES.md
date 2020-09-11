@@ -5,10 +5,6 @@ In this section you can find what has changed from version to version.
 ## 4.2.0
 
 - Improves internal logic when detecting events;
-- Fixes minor issues;
-
-## 4.2.0-beta1
-
 - Improves trip recording;
 - Fixes minor issues;
 
