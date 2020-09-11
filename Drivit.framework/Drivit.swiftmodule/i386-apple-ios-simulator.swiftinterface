@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.3 (swiftlang-1200.0.16.13 clang-1200.0.22.25)
+// swift-compiler-version: Apple Swift version 5.2.4 (swiftlang-1103.0.32.9 clang-1103.0.32.53)
 // swift-module-flags: -target i386-apple-ios10.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name Drivit
 import AVFoundation
 import CallKit
@@ -65,6 +65,7 @@ public enum TripValidity : Swift.Int {
   case rejectedByUser2InCarButNotDriving
   case rejectedByUser2PublicTransport
   case rejectedByUser2BikeWalkStill
+  case rejectedNotRecorded
   case rejectedByUserOther
   case rejectedByUserNoReason
   case rejectedStillTrip
@@ -283,6 +284,9 @@ public protocol DIOrigin : AnyObject {
 }
 public let DPPushNotificationsID: Swift.String
 @_hasMissingDesignatedInitializers final public class Drivit {
+  public static var version: Swift.String {
+    get
+  }
   @objc deinit
 }
 extension Drivit {

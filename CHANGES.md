@@ -2,7 +2,17 @@
 
 In this section you can find what has changed from version to version.
 
-## 4.1.0-beta1	
+## 4.2.0
+
+- Improves internal logic when detecting events;
+- Fixes minor issues;
+
+## 4.2.0-beta1
+
+- Improves trip recording;
+- Fixes minor issues;
+
+## 4.1.0-beta1
 
 - Compiles over Xcode 12 beta;
 
@@ -24,14 +34,10 @@ In this section you can find what has changed from version to version.
 
 ## 4.0.0-beta1
 
+- Adds WLTP properties on the `Vehicle Details` object;
 - Adds new WLTP properties on the `DIReport` object;
 - New fuel type ID `DIFuel.Ethanol` that can be used to get ethanol-based vehicles;
 - The SDK now returns different defaults depending on the region of the user, namely the fuel price for the base vehicle, the electricity price associated with each charging rule, and the default electric vehicle;
-- Fixes minor issues;
-
-## 4.0.0-beta
-
-- Adds WLTP properties on vehicle details;
 - Fixes minor issues;
 
 ## 4.0.0-alpha5
