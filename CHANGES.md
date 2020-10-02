@@ -2,6 +2,12 @@
 
 In this section you can find what has changed from version to version.
 
+## 4.3.1
+
+- Improves logic to better detect trip's origin;
+- Improves overall performance;
+- Fixes minor issues;
+
 ## 4.2.0
 
 - Improves internal logic when detecting events;
