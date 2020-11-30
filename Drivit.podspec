@@ -16,8 +16,8 @@ Pod::Spec.new do |s|
 	s.vendored_frameworks = 'framework/Drivit.framework'
 	s.resource_bundles = { 'Resources' => ['framework/Drivit.bundle'] }
 
-	s.source = { :path => 'framework/Drivit.framework' }
-	s.xcconfig = { 'SWIFT_INCLUDE_PATHS' => '$(inherited) "${PODS_ROOT}/../../iOS-core/framework/Drivit.framework"' }
+	s.source = { :git => 'https://github.com/drivitapp/ios-sdk.git', :tag => s.version }
+	s.xcconfig = { 'SWIFT_INCLUDE_PATHS' => '$(inherited) "${PODS_ROOT}/Drivit/Drivit.framework" "${PODS_CONFIGURATION_BUILD_DIR}/Drivit"' }
 
 	s.dependency 'Firebase/Messaging', '7.1.0'
 end
