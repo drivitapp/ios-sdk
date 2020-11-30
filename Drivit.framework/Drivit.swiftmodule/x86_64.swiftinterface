@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.3 (swiftlang-1200.0.29.2 clang-1200.0.30.1)
+// swift-compiler-version: Apple Swift version 5.3.1 (swiftlang-1200.0.41 clang-1200.0.32.8)
 // swift-module-flags: -target x86_64-apple-ios10.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name Drivit
 import AVFoundation
 import CallKit
@@ -18,6 +18,7 @@ import Security
 import Swift
 import SystemConfiguration
 import UIKit.UIApplication
+import UIKit.UIDevice
 import UIKit
 import os.log
 import os
@@ -48,7 +49,6 @@ public enum DIPermissionStatus : Swift.Int {
   }
 }
 public class DIPermissionsManager {
-  @objc deinit
   public typealias PermissionsDidChange = (DIPermissionsManager) -> Swift.Void
   public var didChange: DIPermissionsManager.PermissionsDidChange?
   public init()
@@ -57,6 +57,7 @@ public class DIPermissionsManager {
   public func lastStatusData() -> [DIPermission]
   public func startNotifier()
   public func stopNotifier()
+  @objc deinit
 }
 public protocol DIVehicleConsumptionData : DIDataCalculation {
   var status: Swift.Int { get }
@@ -263,17 +264,30 @@ public enum DIPermissionState : Swift.Int {
     get
   }
 }
+public enum DIPermissionRequest {
+  case complete
+  case partial
+  public static func == (a: DIPermissionRequest, b: DIPermissionRequest) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
 public protocol DIPermission : AnyObject {
   typealias PermissionDidChange = (DIPermission) -> Swift.Void
   var didChange: Self.PermissionDidChange? { get set }
   func state() -> DIPermissionState
   func identifier() -> DIPermissionType
+  func resolve()
+  func resolve(request: DIPermissionRequest)
+  @available(*, deprecated, message: "Use resolve(request:) or resolve() instead")
   func resolve(view: UIKit.UIViewController)
-  func recheck()
 }
 extension DIPermission {
+  public func resolve()
+  public func resolve(request: DIPermissionRequest)
+  @available(*, deprecated, message: "Use resolve(request:) instead")
   public func resolve(view: UIKit.UIViewController)
-  public func recheck()
 }
 public protocol DIDestination : AnyObject {
   var address: Swift.String? { get set }
@@ -283,7 +297,7 @@ public protocol DIOrigin : AnyObject {
   var address: Swift.String? { get set }
   var coordinate: DICoordinate? { get }
 }
-public let DPPushNotificationsID: Swift.String
+public let DIPushNotificationsID: Swift.String
 @_hasMissingDesignatedInitializers final public class Drivit {
   public static var version: Swift.String {
     get
@@ -504,7 +518,7 @@ extension Drivit {
 }
 public protocol DIUsage : AnyObject {
   var timePattern: Swift.String? { get }
-  var timePattern_lastUpdated: Swift.Int? { get }
+  var timePatternLastUpdated: Swift.Int? { get }
 }
 public enum DIEventType : Swift.Int, Swift.Codable {
   case error
@@ -681,6 +695,8 @@ extension DIPermissionType : Swift.RawRepresentable {}
 extension DIPermissionState : Swift.Equatable {}
 extension DIPermissionState : Swift.Hashable {}
 extension DIPermissionState : Swift.RawRepresentable {}
+extension DIPermissionRequest : Swift.Equatable {}
+extension DIPermissionRequest : Swift.Hashable {}
 extension DIFuel : Swift.Equatable {}
 extension DIFuel : Swift.Hashable {}
 extension DIFuel : Swift.RawRepresentable {}

@@ -2,6 +2,19 @@
 
 In this section you can find what has changed from version to version.
 
+## 4.4.0
+
+- Includes new iOS14 location precision detection in the `Permissions Manager` (we are treating the lack of precise location the same as missing location permission);
+- `DIPermission` protocol changes:
+  - Removes `recheck` method;
+  - Updates `resolve` method replacing `view` parameter by the `request` parameter. This new enum parameter allows you to request multiple dialogs in a row for a specific permission (e.g In case of not determined yet, `Location` is now able to request multiple dialogs in a row when using `.complete` case. Tapping `When In Use` button will trigger `Always` permission dialog right after);
+- `DIUsage` object changes:
+  - Time pattern update property has been renamed to  `timePatternLastUpdated`;
+- Updates `Firebase` dependency version to `7.1.0`;
+- Attempts to fix a crash when recording a trip due to device usage conditions in the background;
+- Improves overall performance;
+- Fixes minor issues;
+
 ## 4.3.1
 
 - Improves logic to better detect trip's origin;
