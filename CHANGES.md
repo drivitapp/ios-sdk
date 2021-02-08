@@ -2,6 +2,19 @@
 
 In this section you can find what has changed from version to version.
 
+## 4.5.0
+
+- Allows you to enable Background Processing capability by setting the following background task identifiers:
+  - `com.drivit.core.task.sync`
+  - `com.drivit.core.task.refresh` 
+- Updates `Firebase` dependency version to `7.4.0`;
+- Logout action now returns a boolean to handle unsuccessful scenario;
+- DIPermission changes:
+  - New `reason()` method to check which permissions the app has defined and behave accordingly;
+  - `.background` identifier has been renamed to `.backgroundRefresh` to better represent its cause;
+  - `state()` method inside the DIPermission object has been renamed to `status()`;
+- Improves background sync execution;
+
 ## 4.4.0
 
 - Includes new iOS14 location precision detection in the `Permissions Manager` (we are treating the lack of precise location the same as missing location permission);
@@ -11,7 +24,6 @@ In this section you can find what has changed from version to version.
 - `DIUsage` object changes:
   - Time pattern update property has been renamed to  `timePatternLastUpdated`;
 - Updates `Firebase` dependency version to `7.1.0`;
-- Attempts to fix a crash when recording a trip due to device usage conditions in the background;
 - Improves overall performance;
 - Fixes minor issues;
 

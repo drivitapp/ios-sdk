@@ -1,7 +1,8 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.3.1 (swiftlang-1200.0.41 clang-1200.0.32.8)
+// swift-compiler-version: Apple Swift version 5.3.2 (swiftlang-1200.0.45 clang-1200.0.32.28)
 // swift-module-flags: -target armv7-apple-ios10.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name Drivit
 import AVFoundation
+import BackgroundTasks
 import CallKit
 import CommonCrypto
 import Compression
@@ -9,6 +10,7 @@ import Contacts
 import CoreData
 import CoreLocation
 import CoreMotion
+import Dispatch
 import ExternalAccessory
 import Firebase
 import Foundation
@@ -35,17 +37,8 @@ extension Drivit {
     public static func electricModelPerClass(filters: [DIElectricFilter], completion: @escaping (Swift.Result<[DIVehicleDetails], Swift.Error>) -> Swift.Void)
     public static func parseTecdoc(xml: Swift.String, completion: @escaping (Swift.Result<DIVehicle, Swift.Error>) -> Swift.Void)
     public static func syncAccelAndTrips(includeScoringData: Swift.Bool = false, completion: @escaping (Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void)
-    public static func send(feedback message: Swift.String)
+    public static func send(feedback message: Swift.String, completion: ((Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void)? = nil)
     @objc deinit
-  }
-}
-public enum DIPermissionStatus : Swift.Int {
-  case ok
-  case error
-  public typealias RawValue = Swift.Int
-  public init?(rawValue: Swift.Int)
-  public var rawValue: Swift.Int {
-    get
   }
 }
 public class DIPermissionsManager {
@@ -62,7 +55,7 @@ public class DIPermissionsManager {
 public protocol DIVehicleConsumptionData : DIDataCalculation {
   var status: Swift.Int { get }
 }
-public enum TripValidity : Swift.Int {
+public enum DITripValidity : Swift.Int {
   case rejectedByUser2InCarButNotDriving
   case rejectedByUser2PublicTransport
   case rejectedByUser2BikeWalkStill
@@ -112,6 +105,7 @@ public protocol DITrip : AnyObject {
   func sync(includeScoringData: Swift.Bool, completion: @escaping (Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void)
   func areLocationsAndEventsAvailable() -> Swift.Bool
   func report(message: Swift.String)
+  func report(message: Swift.String, completion: @escaping (Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void)
 }
 public enum DILogin {
   case regular(email: Swift.String, password: Swift.String)
@@ -128,7 +122,7 @@ public struct DIRegion {
 }
 public protocol DIAuthentication : AnyObject {
   var isLoggedIn: Swift.Bool { get }
-  func logout()
+  func logout() -> Swift.Bool
   func login(type: DILogin, completion: @escaping (Swift.Result<DIUser, Swift.Error>) -> Swift.Void)
   func signup(type: DISignup, completion: @escaping (Swift.Result<DIUser, Swift.Error>) -> Swift.Void)
   func resetPassword(email: Swift.String, completion: @escaping (Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void)
@@ -241,7 +235,7 @@ extension DIError.Authentication {
 public enum DIPermissionType : Swift.Int {
   case location
   case motion
-  case background
+  case backgroundRefresh
   case powermode
   case internet
   public typealias RawValue = Swift.Int
@@ -255,7 +249,7 @@ extension DIPermissionType : Swift.CustomStringConvertible {
     get
   }
 }
-public enum DIPermissionState : Swift.Int {
+public enum DIPermissionStatus : Swift.Int {
   case ok
   case error
   public typealias RawValue = Swift.Int
@@ -273,10 +267,70 @@ public enum DIPermissionRequest {
   }
   public func hash(into hasher: inout Swift.Hasher)
 }
+public enum DIPermissionReason : Swift.Equatable {
+  case location(DIPermissionReason.Location)
+  case motion(DIPermissionReason.Motion)
+  case internet(DIPermissionReason.Internet)
+  case powerMode(DIPermissionReason.PowerMode)
+  case backgroundRefresh(DIPermissionReason.BackgroundRefresh)
+  public enum Location {
+    case notDetermined
+    case whenInUse
+    case always
+    case denied
+    case restricted
+    case reducedAccuracy
+    public static func == (a: DIPermissionReason.Location, b: DIPermissionReason.Location) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+  public enum Motion {
+    case notDetermined
+    case restricted
+    case denied
+    case authorized
+    public static func == (a: DIPermissionReason.Motion, b: DIPermissionReason.Motion) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+  public enum Internet {
+    case available
+    case unavailable
+    public static func == (a: DIPermissionReason.Internet, b: DIPermissionReason.Internet) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+  public enum PowerMode {
+    case on
+    case off
+    public static func == (a: DIPermissionReason.PowerMode, b: DIPermissionReason.PowerMode) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+  public enum BackgroundRefresh {
+    case on
+    case off
+    public static func == (a: DIPermissionReason.BackgroundRefresh, b: DIPermissionReason.BackgroundRefresh) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+  public static func == (lhs: DIPermissionReason, rhs: DIPermissionReason) -> Swift.Bool
+}
 public protocol DIPermission : AnyObject {
   typealias PermissionDidChange = (DIPermission) -> Swift.Void
   var didChange: Self.PermissionDidChange? { get set }
-  func state() -> DIPermissionState
+  func reason() -> DIPermissionReason
+  func status() -> DIPermissionStatus
   func identifier() -> DIPermissionType
   func resolve()
   func resolve(request: DIPermissionRequest)
@@ -310,6 +364,7 @@ extension Drivit {
     public static func registerForRemoteNotifications(withDeviceToken deviceToken: Foundation.Data)
     public static func didReceiveRemoteNotification(userInfo: [Swift.AnyHashable : Any])
     public static func didReceiveRemoteNotification(userInfo: [Swift.AnyHashable : Any], completionHandler: @escaping (UIKit.UIBackgroundFetchResult) -> Swift.Void)
+    @available(iOS, deprecated: 13, message: "Enable background task scheduler identifiers")
     public static func performFetch(withCompletionHandler completionHandler: @escaping (DIBackgroundFetchResult) -> Swift.Void)
     public static func enableDebugMode()
     @objc deinit
@@ -433,6 +488,8 @@ extension Drivit {
     public static func handleUserAction_userArrived()
     public static func isRecordingTrip() -> Swift.Bool
     public static func generateReport(completion: @escaping (Swift.Result<DIReport, Swift.Error>) -> Swift.Void)
+    @discardableResult
+    public static func simulateTrip() -> Swift.String
     @objc deinit
   }
 }
@@ -621,7 +678,7 @@ extension Drivit {
     public static var isLoggedIn: Swift.Bool {
       get
     }
-    public static func logout()
+    public static func logout() -> Swift.Bool
     public static func login(type: DILogin, completion: @escaping (Swift.Result<DIUser, Swift.Error>) -> Swift.Void)
     public static func signup(type: DISignup, completion: @escaping (Swift.Result<DIUser, Swift.Error>) -> Swift.Void)
     public static func resetPassword(email: Swift.String, completion: @escaping (Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void)
@@ -663,12 +720,9 @@ extension NSNotification.Name {
     get
   }
 }
-extension DIPermissionStatus : Swift.Equatable {}
-extension DIPermissionStatus : Swift.Hashable {}
-extension DIPermissionStatus : Swift.RawRepresentable {}
-extension TripValidity : Swift.Equatable {}
-extension TripValidity : Swift.Hashable {}
-extension TripValidity : Swift.RawRepresentable {}
+extension DITripValidity : Swift.Equatable {}
+extension DITripValidity : Swift.Hashable {}
+extension DITripValidity : Swift.RawRepresentable {}
 extension DIChargingRuleId : Swift.Equatable {}
 extension DIChargingRuleId : Swift.Hashable {}
 extension DIChargingRuleId : Swift.RawRepresentable {}
@@ -692,11 +746,21 @@ extension DIError.Object : Swift.Hashable {}
 extension DIPermissionType : Swift.Equatable {}
 extension DIPermissionType : Swift.Hashable {}
 extension DIPermissionType : Swift.RawRepresentable {}
-extension DIPermissionState : Swift.Equatable {}
-extension DIPermissionState : Swift.Hashable {}
-extension DIPermissionState : Swift.RawRepresentable {}
+extension DIPermissionStatus : Swift.Equatable {}
+extension DIPermissionStatus : Swift.Hashable {}
+extension DIPermissionStatus : Swift.RawRepresentable {}
 extension DIPermissionRequest : Swift.Equatable {}
 extension DIPermissionRequest : Swift.Hashable {}
+extension DIPermissionReason.Location : Swift.Equatable {}
+extension DIPermissionReason.Location : Swift.Hashable {}
+extension DIPermissionReason.Motion : Swift.Equatable {}
+extension DIPermissionReason.Motion : Swift.Hashable {}
+extension DIPermissionReason.Internet : Swift.Equatable {}
+extension DIPermissionReason.Internet : Swift.Hashable {}
+extension DIPermissionReason.PowerMode : Swift.Equatable {}
+extension DIPermissionReason.PowerMode : Swift.Hashable {}
+extension DIPermissionReason.BackgroundRefresh : Swift.Equatable {}
+extension DIPermissionReason.BackgroundRefresh : Swift.Hashable {}
 extension DIFuel : Swift.Equatable {}
 extension DIFuel : Swift.Hashable {}
 extension DIFuel : Swift.RawRepresentable {}
