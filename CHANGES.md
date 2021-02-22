@@ -2,6 +2,10 @@
 
 In this section you can find what has changed from version to version.
 
+## 4.5.1
+
+- Fixes some background crashes;
+
 ## 4.5.0
 
 - Allows you to enable Background Processing capability by setting the following background task identifiers:
