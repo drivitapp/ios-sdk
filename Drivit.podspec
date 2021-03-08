@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 	s.name		= 'Drivit'
-	s.version	= '4.5.1'
+	s.version	= '4.6.0-beta1'
 
 	s.summary	= 'A really cool SDK.'
 	s.homepage	= 'https://www.drivit.com'
@@ -19,6 +19,6 @@ Pod::Spec.new do |s|
 	s.source = { :git => 'https://github.com/drivitapp/ios-sdk.git', :tag => s.version }
 	s.xcconfig = { 'SWIFT_INCLUDE_PATHS' => '$(inherited) "${PODS_ROOT}/Drivit/Drivit.framework" "${PODS_CONFIGURATION_BUILD_DIR}/Drivit"' }
 
-	s.dependency 'Firebase/Messaging', '7.4.0'
-	s.dependency 'Firebase/Analytics', '7.4.0'
+	s.dependency 'Firebase/Messaging', '7.7.0'
+	s.dependency 'Firebase/Analytics', '7.7.0'
 end

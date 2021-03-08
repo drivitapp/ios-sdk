@@ -1,9 +1,12 @@
 // swift-interface-format-version: 1.0
 // swift-compiler-version: Apple Swift version 5.3.2 (swiftlang-1200.0.45 clang-1200.0.32.28)
 // swift-module-flags: -target armv7-apple-ios10.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name Drivit
+import AVFoundation.AVFAudio.AVAudioSession
 import AVFoundation
 import BackgroundTasks
+import CoreMotion.CMMotionManager
 import CallKit
+import SystemConfiguration.CaptiveNetwork
 import CommonCrypto
 import Compression
 import Contacts
@@ -366,6 +369,7 @@ extension Drivit {
     public static func didReceiveRemoteNotification(userInfo: [Swift.AnyHashable : Any], completionHandler: @escaping (UIKit.UIBackgroundFetchResult) -> Swift.Void)
     @available(iOS, deprecated: 13, message: "Enable background task scheduler identifiers")
     public static func performFetch(withCompletionHandler completionHandler: @escaping (DIBackgroundFetchResult) -> Swift.Void)
+    public static func handleEventsForBackgroundURLSession(withIdentifier identifier: Swift.String, completionHandler: @escaping () -> Swift.Void)
     public static func enableDebugMode()
     @objc deinit
   }
@@ -466,6 +470,12 @@ extension Drivit {
       }
       @objc deinit
     }
+    public static var id: Swift.String? {
+      get
+    }
+    public static var email: Swift.String? {
+      get
+    }
     public static var lastVehicleGuid: Swift.String? {
       get
     }
@@ -523,6 +533,12 @@ public protocol DIUser : AnyObject {
   var email: Swift.String { get }
   var firstName: Swift.String { get }
   var lastName: Swift.String { get }
+}
+extension Date : Swift.ExpressibleByStringLiteral {
+  public init(stringLiteral value: Swift.String)
+  public typealias StringLiteralType = Swift.String
+  public typealias ExtendedGraphemeClusterLiteralType = Swift.String
+  public typealias UnicodeScalarLiteralType = Swift.String
 }
 public protocol DIVehicleDetails : AnyObject {
   var tankCapacity: Swift.Double? { get }
@@ -601,8 +617,6 @@ public protocol DIEvent : AnyObject {
   var value: Swift.Double? { get }
   var property: Swift.Int? { get }
 }
-extension Bundle {
-}
 public protocol DIVehicleSettings : AnyObject {
   var chosenSoftTripConsumptionId: Swift.String? { get }
   var customSoftTripConsumptionValue: Swift.Double? { get }
@@ -653,6 +667,25 @@ public protocol DIUserSettings : AnyObject {
   var chargingRules: [DIChargingRule] { get set }
   var isBeaconAssistedTripRecordingEnabled: Swift.Bool { get set }
 }
+public protocol AnalyticsDelegate : AnyObject {
+  func analytics(_ analytics: Analytics, didTriggerEvent event: Analytics.Event)
+}
+@_hasMissingDesignatedInitializers public class Analytics {
+  public enum Event {
+    case connectivity(Analytics.Event.Connectivity)
+    public enum Connectivity {
+      case wifiConnectionDetected
+      public static func == (a: Analytics.Event.Connectivity, b: Analytics.Event.Connectivity) -> Swift.Bool
+      public var hashValue: Swift.Int {
+        get
+      }
+      public func hash(into hasher: inout Swift.Hasher)
+    }
+    public func name() -> Swift.String
+    public func data() -> [Swift.String : Any]
+  }
+  @objc deinit
+}
 public protocol DIPresentDevice : AnyObject {
   var macAddress: Swift.String? { get }
   var name: Swift.String? { get }
@@ -671,6 +704,15 @@ public enum DIBackgroundFetchResult : Swift.UInt {
   public init?(rawValue: Swift.UInt)
   public var rawValue: Swift.UInt {
     get
+  }
+}
+extension Drivit {
+  @_hasMissingDesignatedInitializers final public class analytics {
+    public static var delegate: AnalyticsDelegate? {
+      get
+      set
+    }
+    @objc deinit
   }
 }
 extension Drivit {
@@ -779,6 +821,8 @@ extension DIRecordingMode : Swift.RawRepresentable {}
 extension DIEventType : Swift.Equatable {}
 extension DIEventType : Swift.Hashable {}
 extension DIEventType : Swift.RawRepresentable {}
+extension Analytics.Event.Connectivity : Swift.Equatable {}
+extension Analytics.Event.Connectivity : Swift.Hashable {}
 extension DIBackgroundFetchResult : Swift.Equatable {}
 extension DIBackgroundFetchResult : Swift.Hashable {}
 extension DIBackgroundFetchResult : Swift.RawRepresentable {}

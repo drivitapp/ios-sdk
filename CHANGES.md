@@ -2,6 +2,16 @@
 
 In this section you can find what has changed from version to version.
 
+## 4.6.0-beta1
+
+- Implements interface through which we can give wifi connections data;
+- Creates two new public properties to access user id and email;
+- Improves scoring files upload;
+- Improves trip recording data accuracy;
+- Improves background recording stability;
+- Updates `Firebase` dependency version to `7.7.0`;
+- Fixes activity dialog from being prompted when the user sign in;
+
 ## 4.5.1
 
 - Fixes some background crashes;
