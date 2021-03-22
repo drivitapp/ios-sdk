@@ -534,12 +534,6 @@ public protocol DIUser : AnyObject {
   var firstName: Swift.String { get }
   var lastName: Swift.String { get }
 }
-extension Date : Swift.ExpressibleByStringLiteral {
-  public init(stringLiteral value: Swift.String)
-  public typealias StringLiteralType = Swift.String
-  public typealias ExtendedGraphemeClusterLiteralType = Swift.String
-  public typealias UnicodeScalarLiteralType = Swift.String
-}
 public protocol DIVehicleDetails : AnyObject {
   var tankCapacity: Swift.Double? { get }
   var make: Swift.String? { get }
@@ -667,15 +661,15 @@ public protocol DIUserSettings : AnyObject {
   var chargingRules: [DIChargingRule] { get set }
   var isBeaconAssistedTripRecordingEnabled: Swift.Bool { get set }
 }
-public protocol AnalyticsDelegate : AnyObject {
-  func analytics(_ analytics: Analytics, didTriggerEvent event: Analytics.Event)
+public protocol DIAnalyticsDelegate : AnyObject {
+  func analytics(_ analytics: DIAnalytics, didTriggerEvent event: DIAnalytics.Event)
 }
-@_hasMissingDesignatedInitializers public class Analytics {
+@_hasMissingDesignatedInitializers public class DIAnalytics {
   public enum Event {
-    case connectivity(Analytics.Event.Connectivity)
+    case connectivity(DIAnalytics.Event.Connectivity)
     public enum Connectivity {
       case wifiConnectionDetected
-      public static func == (a: Analytics.Event.Connectivity, b: Analytics.Event.Connectivity) -> Swift.Bool
+      public static func == (a: DIAnalytics.Event.Connectivity, b: DIAnalytics.Event.Connectivity) -> Swift.Bool
       public var hashValue: Swift.Int {
         get
       }
@@ -708,7 +702,7 @@ public enum DIBackgroundFetchResult : Swift.UInt {
 }
 extension Drivit {
   @_hasMissingDesignatedInitializers final public class analytics {
-    public static var delegate: AnalyticsDelegate? {
+    public static var delegate: DIAnalyticsDelegate? {
       get
       set
     }
@@ -821,8 +815,8 @@ extension DIRecordingMode : Swift.RawRepresentable {}
 extension DIEventType : Swift.Equatable {}
 extension DIEventType : Swift.Hashable {}
 extension DIEventType : Swift.RawRepresentable {}
-extension Analytics.Event.Connectivity : Swift.Equatable {}
-extension Analytics.Event.Connectivity : Swift.Hashable {}
+extension DIAnalytics.Event.Connectivity : Swift.Equatable {}
+extension DIAnalytics.Event.Connectivity : Swift.Hashable {}
 extension DIBackgroundFetchResult : Swift.Equatable {}
 extension DIBackgroundFetchResult : Swift.Hashable {}
 extension DIBackgroundFetchResult : Swift.RawRepresentable {}

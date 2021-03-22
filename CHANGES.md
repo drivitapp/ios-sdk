@@ -2,7 +2,7 @@
 
 In this section you can find what has changed from version to version.
 
-## 4.6.0-beta1
+## 4.6.0
 
 - Implements interface through which we can give wifi connections data;
 - Creates two new public properties to access user id and email;
