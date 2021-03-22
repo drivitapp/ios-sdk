@@ -47,13 +47,13 @@ extension Drivit {
 public class DIPermissionsManager {
   public typealias PermissionsDidChange = (DIPermissionsManager) -> Swift.Void
   public var didChange: DIPermissionsManager.PermissionsDidChange?
+  @objc deinit
   public init()
   public func allSettings() -> [DIPermission]
   public func currentStatus() -> DIPermissionStatus
   public func lastStatusData() -> [DIPermission]
   public func startNotifier()
   public func stopNotifier()
-  @objc deinit
 }
 public protocol DIVehicleConsumptionData : DIDataCalculation {
   var status: Swift.Int { get }
@@ -241,6 +241,7 @@ public enum DIPermissionType : Swift.Int {
   case backgroundRefresh
   case powermode
   case internet
+  case lowStorage
   public typealias RawValue = Swift.Int
   public init?(rawValue: Swift.Int)
   public var rawValue: Swift.Int {
@@ -275,6 +276,7 @@ public enum DIPermissionReason : Swift.Equatable {
   case motion(DIPermissionReason.Motion)
   case internet(DIPermissionReason.Internet)
   case powerMode(DIPermissionReason.PowerMode)
+  case lowStorage(DIPermissionReason.LowStorage)
   case backgroundRefresh(DIPermissionReason.BackgroundRefresh)
   public enum Location {
     case notDetermined
@@ -301,8 +303,9 @@ public enum DIPermissionReason : Swift.Equatable {
     public func hash(into hasher: inout Swift.Hasher)
   }
   public enum Internet {
-    case available
-    case unavailable
+    case wifi
+    case cellular
+    case off
     public static func == (a: DIPermissionReason.Internet, b: DIPermissionReason.Internet) -> Swift.Bool
     public var hashValue: Swift.Int {
       get
@@ -318,9 +321,19 @@ public enum DIPermissionReason : Swift.Equatable {
     }
     public func hash(into hasher: inout Swift.Hasher)
   }
+  public enum LowStorage {
+    case low
+    case normal
+    public static func == (a: DIPermissionReason.LowStorage, b: DIPermissionReason.LowStorage) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
   public enum BackgroundRefresh {
-    case on
-    case off
+    case restricted
+    case denied
+    case available
     public static func == (a: DIPermissionReason.BackgroundRefresh, b: DIPermissionReason.BackgroundRefresh) -> Swift.Bool
     public var hashValue: Swift.Int {
       get
@@ -337,14 +350,10 @@ public protocol DIPermission : AnyObject {
   func identifier() -> DIPermissionType
   func resolve()
   func resolve(request: DIPermissionRequest)
-  @available(*, deprecated, message: "Use resolve(request:) or resolve() instead")
-  func resolve(view: UIKit.UIViewController)
 }
 extension DIPermission {
   public func resolve()
   public func resolve(request: DIPermissionRequest)
-  @available(*, deprecated, message: "Use resolve(request:) instead")
-  public func resolve(view: UIKit.UIViewController)
 }
 public protocol DIDestination : AnyObject {
   var address: Swift.String? { get set }
@@ -639,6 +648,25 @@ extension DIDataCalculation {
     get
   }
 }
+public protocol DIAnalyticsDelegate : AnyObject {
+  func analytics(_ analytics: DIAnalytics, didTriggerEvent event: DIAnalytics.Event)
+}
+@_hasMissingDesignatedInitializers public class DIAnalytics {
+  public enum Event {
+    case connectivity(DIAnalytics.Event.Connectivity)
+    public enum Connectivity {
+      case wifiConnectionDetected
+      public static func == (a: DIAnalytics.Event.Connectivity, b: DIAnalytics.Event.Connectivity) -> Swift.Bool
+      public var hashValue: Swift.Int {
+        get
+      }
+      public func hash(into hasher: inout Swift.Hasher)
+    }
+    public func name() -> Swift.String
+    public func data() -> [Swift.String : Any]
+  }
+  @objc deinit
+}
 public protocol DITargetVehicleConsumptionData : DIDataCalculation {
   var chargingEvents: [DIChargingEvent] { get set }
   var batteryConsumption: Swift.Double { get }
@@ -660,25 +688,6 @@ public protocol DIUserSettings : AnyObject {
   var lastTargetVehicleGuid: Swift.String? { get }
   var chargingRules: [DIChargingRule] { get set }
   var isBeaconAssistedTripRecordingEnabled: Swift.Bool { get set }
-}
-public protocol DIAnalyticsDelegate : AnyObject {
-  func analytics(_ analytics: DIAnalytics, didTriggerEvent event: DIAnalytics.Event)
-}
-@_hasMissingDesignatedInitializers public class DIAnalytics {
-  public enum Event {
-    case connectivity(DIAnalytics.Event.Connectivity)
-    public enum Connectivity {
-      case wifiConnectionDetected
-      public static func == (a: DIAnalytics.Event.Connectivity, b: DIAnalytics.Event.Connectivity) -> Swift.Bool
-      public var hashValue: Swift.Int {
-        get
-      }
-      public func hash(into hasher: inout Swift.Hasher)
-    }
-    public func name() -> Swift.String
-    public func data() -> [Swift.String : Any]
-  }
-  @objc deinit
 }
 public protocol DIPresentDevice : AnyObject {
   var macAddress: Swift.String? { get }
@@ -795,6 +804,8 @@ extension DIPermissionReason.Internet : Swift.Equatable {}
 extension DIPermissionReason.Internet : Swift.Hashable {}
 extension DIPermissionReason.PowerMode : Swift.Equatable {}
 extension DIPermissionReason.PowerMode : Swift.Hashable {}
+extension DIPermissionReason.LowStorage : Swift.Equatable {}
+extension DIPermissionReason.LowStorage : Swift.Hashable {}
 extension DIPermissionReason.BackgroundRefresh : Swift.Equatable {}
 extension DIPermissionReason.BackgroundRefresh : Swift.Hashable {}
 extension DIFuel : Swift.Equatable {}

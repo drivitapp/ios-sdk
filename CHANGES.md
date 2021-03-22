@@ -2,6 +2,10 @@
 
 In this section you can find what has changed from version to version.
 
+## 4.7.0
+
+- New permission object to detect low storage;
+
 ## 4.6.0
 
 - Implements interface through which we can give wifi connections data;

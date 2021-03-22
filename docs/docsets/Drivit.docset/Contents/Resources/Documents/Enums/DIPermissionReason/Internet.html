@@ -21,7 +21,7 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../../index.html">
-          Drivit 4.6.0 Docs
+          Drivit 4.7.0 Docs
         </a>
          (100% documented)
       </p>
@@ -124,6 +124,9 @@
                 <a class="nav-group-task-link" href="../../Enums/DIPermissionReason/PowerMode.html">– PowerMode</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Enums/DIPermissionReason/LowStorage.html">– LowStorage</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Enums/DIPermissionReason/BackgroundRefresh.html">– BackgroundRefresh</a>
               </li>
               <li class="nav-group-task">
@@ -175,20 +178,6 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Protocols/DITargetVehicleConsumptionData.html">DITargetVehicleConsumptionData</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a class="nav-group-name-link" href="../../Analytics.html">Analytics</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Classes/Analytics.html">Analytics</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Classes/Analytics/Event.html">– Event</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Protocols/AnalyticsDelegate.html">AnalyticsDelegate</a>
               </li>
             </ul>
           </li>
@@ -286,6 +275,25 @@
               </li>
             </ul>
           </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../../Other%20Classes.html">Other Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/DIAnalytics.html">DIAnalytics</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/DIAnalytics/Event.html">– Event</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../../Other%20Protocols.html">Other Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Protocols/DIAnalyticsDelegate.html">DIAnalyticsDelegate</a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <article class="main-content">
@@ -312,9 +320,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6Drivit18DIPermissionReasonO8InternetO9availableyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/available" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6Drivit18DIPermissionReasonO8InternetO9availableyA2EmF">available</a>
+                    <a name="/s:6Drivit18DIPermissionReasonO8InternetO4wifiyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/wifi" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Drivit18DIPermissionReasonO8InternetO4wifiyA2EmF">wifi</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -322,14 +330,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Available</p>
+                        <p>WiFi</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">available</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">wifi</span></code></pre>
 
                         </div>
                       </div>
@@ -339,9 +347,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6Drivit18DIPermissionReasonO8InternetO11unavailableyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/unavailable" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6Drivit18DIPermissionReasonO8InternetO11unavailableyA2EmF">unavailable</a>
+                    <a name="/s:6Drivit18DIPermissionReasonO8InternetO8cellularyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/cellular" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Drivit18DIPermissionReasonO8InternetO8cellularyA2EmF">cellular</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -349,14 +357,41 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Unavailable</p>
+                        <p>Cellular</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">unavailable</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">cellular</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Drivit18DIPermissionReasonO8InternetO3offyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/off" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Drivit18DIPermissionReasonO8InternetO3offyA2EmF">off</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Off</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">off</span></code></pre>
 
                         </div>
                       </div>
@@ -371,7 +406,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2021 <a class="link" href="https://drivit.com" target="_blank" rel="external">Drivit</a>. All rights reserved. (Last updated: 2021-03-08)</p>
+      <p>&copy; 2021 <a class="link" href="https://drivit.com" target="_blank" rel="external">Drivit</a>. All rights reserved. (Last updated: 2021-03-22)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
