@@ -8,7 +8,6 @@ import CoreMotion.CMMotionManager
 import CallKit
 import SystemConfiguration.CaptiveNetwork
 import CommonCrypto
-import Compression
 import Contacts
 import CoreData
 import CoreLocation
@@ -17,6 +16,7 @@ import Dispatch
 import ExternalAccessory
 import Firebase
 import Foundation
+import Foundation/*.Data*/
 import LocalAuthentication
 import MapKit
 import Security
@@ -629,6 +629,11 @@ public protocol DILocation : AnyObject {
   var address: Swift.String? { get set }
   var timestamp: Foundation.Date { get set }
   var coordinate: DICoordinate { get set }
+}
+extension CLAuthorizationStatus : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
 }
 public protocol DIDataCalculation : AnyObject {
   var totalCost: Swift.Double { get }

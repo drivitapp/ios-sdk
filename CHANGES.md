@@ -2,6 +2,12 @@
 
 In this section you can find what has changed from version to version.
 
+## 4.8.0
+
+- Reactivates walking detection;
+- Fixes sensors recording ratio;
+- Updates `Firebase` dependency version to `7.9.0`;
+
 ## 4.7.0
 
 - New permission object to detect low storage;
@@ -10,8 +16,8 @@ In this section you can find what has changed from version to version.
 
 - Implements interface through which we can give wifi connections data;
 - Creates two new public properties to access user id and email;
-- Improves scoring files upload;
 - Deactivates walking detection;
+- Improves scoring files upload;
 - Improves trip recording data accuracy;
 - Improves background recording stability;
 - Updates `Firebase` dependency version to `7.7.0`;
