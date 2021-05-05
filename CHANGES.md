@@ -2,6 +2,10 @@
 
 In this section you can find what has changed from version to version.
 
+## 4.9.0-beta1
+
+- Implement counters for accel and location files;
+
 ## 4.8.0
 
 - Reactivates walking detection;
@@ -209,7 +213,6 @@ In this section you can find what has changed from version to version.
 
 - Improves trip recording efficiency;
 - Internal improvements;
-  
 ## 1.9.1
 
 - Avoids user's flights recording;
@@ -221,34 +224,28 @@ In this section you can find what has changed from version to version.
   - is waiting for consumption;
   - Internal improvements;
 - Minor bug fixes;
-  
 ## 1.9.0
 
 - Improves location tracking battery consumption;
 - Internal improvements;
 - Minor bug fixes;
-  
 ## 1.8.0
 
 - Improves snap to road request;
 - Internal improvements;
 - Minor bug fixes;
-  
 ## 1.7.1
 
 - Improves trips history loading performance;
-  
 ## 1.7.0
 
 - Automatic trip classification (whether they belong to the user or not);
 - `syncAccelAndTrips` method now receives a boolean to force sync relevant info for classification. This property is only required if your app is using classification. The default value for this property is `false`;
 - Internal improvements;
 - Minor bug fixes;
-  
 ## 1.6.0-beta
 
 - Internal improvements;
-  
 ## 1.5.3
 
 - Includes a new method to edit trip origin and destination;

@@ -1,7 +1,8 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.3.2 (swiftlang-1200.0.45 clang-1200.0.32.28)
+// swift-compiler-version: Apple Swift version 5.4 (swiftlang-1205.0.26.9 clang-1205.0.19.55)
 // swift-module-flags: -target i386-apple-ios10.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name Drivit
-import AVFoundation.AVFAudio.AVAudioSession
+import AVFAudio.AVAudioSession
+import AVFAudio
 import AVFoundation
 import BackgroundTasks
 import CoreMotion.CMMotionManager
@@ -68,8 +69,8 @@ public enum DITripValidity : Swift.Int {
   case rejectedStillTrip
   case acceptedByUser
   case pendingAcceptance
-  public typealias RawValue = Swift.Int
   public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
   public var rawValue: Swift.Int {
     get
   }
@@ -136,20 +137,20 @@ public enum DIChargingRuleId : Swift.Int, Swift.Codable {
   case work
   case publicSpaces
   case unknown
+  public init?(rawValue: Swift.Int)
   public typealias RawValue = Swift.Int
   public var rawValue: Swift.Int {
     get
   }
-  public init?(rawValue: Swift.Int)
 }
 public enum DIChargingRuleDays : Swift.Int {
   case onlyBusinessDays
   case allDays
+  public init?(rawValue: Swift.Int)
   public typealias RawValue = Swift.Int
   public var rawValue: Swift.Int {
     get
   }
-  public init?(rawValue: Swift.Int)
 }
 public protocol DIChargingRule : AnyObject {
   var batteryThreshold_ev: Swift.Int { get }
@@ -172,26 +173,26 @@ public enum DIError : Swift.Error {
     case notLoggedIn
     case authenticationInProgress
     public static func == (a: DIError.Authentication, b: DIError.Authentication) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
     public var hashValue: Swift.Int {
       get
     }
-    public func hash(into hasher: inout Swift.Hasher)
   }
   public enum DeleteAccount : Swift.Error {
     case failed
     public static func == (a: DIError.DeleteAccount, b: DIError.DeleteAccount) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
     public var hashValue: Swift.Int {
       get
     }
-    public func hash(into hasher: inout Swift.Hasher)
   }
   public enum ResetPassword : Swift.Error {
     case failed
     public static func == (a: DIError.ResetPassword, b: DIError.ResetPassword) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
     public var hashValue: Swift.Int {
       get
     }
-    public func hash(into hasher: inout Swift.Hasher)
   }
   public enum SnappedLocations : Swift.Error {
     case failed
@@ -199,34 +200,34 @@ public enum DIError : Swift.Error {
     case missingLocations
     case missingGoogleAPIKey
     public static func == (a: DIError.SnappedLocations, b: DIError.SnappedLocations) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
     public var hashValue: Swift.Int {
       get
     }
-    public func hash(into hasher: inout Swift.Hasher)
   }
   public enum Trips : Swift.Error {
     case notFound
     public static func == (a: DIError.Trips, b: DIError.Trips) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
     public var hashValue: Swift.Int {
       get
     }
-    public func hash(into hasher: inout Swift.Hasher)
   }
   public enum Garage : Swift.Error {
     case vehicleNotFound
     public static func == (a: DIError.Garage, b: DIError.Garage) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
     public var hashValue: Swift.Int {
       get
     }
-    public func hash(into hasher: inout Swift.Hasher)
   }
   public enum Object : Swift.Error {
     case notFound
     public static func == (a: DIError.Object, b: DIError.Object) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
     public var hashValue: Swift.Int {
       get
     }
-    public func hash(into hasher: inout Swift.Hasher)
   }
 }
 extension DIError.Authentication {
@@ -242,8 +243,8 @@ public enum DIPermissionType : Swift.Int {
   case powermode
   case internet
   case lowStorage
-  public typealias RawValue = Swift.Int
   public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
   public var rawValue: Swift.Int {
     get
   }
@@ -256,8 +257,8 @@ extension DIPermissionType : Swift.CustomStringConvertible {
 public enum DIPermissionStatus : Swift.Int {
   case ok
   case error
-  public typealias RawValue = Swift.Int
   public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
   public var rawValue: Swift.Int {
     get
   }
@@ -266,10 +267,10 @@ public enum DIPermissionRequest {
   case complete
   case partial
   public static func == (a: DIPermissionRequest, b: DIPermissionRequest) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
   public var hashValue: Swift.Int {
     get
   }
-  public func hash(into hasher: inout Swift.Hasher)
 }
 public enum DIPermissionReason : Swift.Equatable {
   case location(DIPermissionReason.Location)
@@ -286,10 +287,10 @@ public enum DIPermissionReason : Swift.Equatable {
     case restricted
     case reducedAccuracy
     public static func == (a: DIPermissionReason.Location, b: DIPermissionReason.Location) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
     public var hashValue: Swift.Int {
       get
     }
-    public func hash(into hasher: inout Swift.Hasher)
   }
   public enum Motion {
     case notDetermined
@@ -297,48 +298,48 @@ public enum DIPermissionReason : Swift.Equatable {
     case denied
     case authorized
     public static func == (a: DIPermissionReason.Motion, b: DIPermissionReason.Motion) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
     public var hashValue: Swift.Int {
       get
     }
-    public func hash(into hasher: inout Swift.Hasher)
   }
   public enum Internet {
     case wifi
     case cellular
     case off
     public static func == (a: DIPermissionReason.Internet, b: DIPermissionReason.Internet) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
     public var hashValue: Swift.Int {
       get
     }
-    public func hash(into hasher: inout Swift.Hasher)
   }
   public enum PowerMode {
     case on
     case off
     public static func == (a: DIPermissionReason.PowerMode, b: DIPermissionReason.PowerMode) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
     public var hashValue: Swift.Int {
       get
     }
-    public func hash(into hasher: inout Swift.Hasher)
   }
   public enum LowStorage {
     case low
     case normal
     public static func == (a: DIPermissionReason.LowStorage, b: DIPermissionReason.LowStorage) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
     public var hashValue: Swift.Int {
       get
     }
-    public func hash(into hasher: inout Swift.Hasher)
   }
   public enum BackgroundRefresh {
     case restricted
     case denied
     case available
     public static func == (a: DIPermissionReason.BackgroundRefresh, b: DIPermissionReason.BackgroundRefresh) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
     public var hashValue: Swift.Int {
       get
     }
-    public func hash(into hasher: inout Swift.Hasher)
   }
   public static func == (lhs: DIPermissionReason, rhs: DIPermissionReason) -> Swift.Bool
 }
@@ -391,13 +392,13 @@ public enum DIFuel : Swift.Int, Swift.CaseIterable {
   public var description: Swift.String {
     get
   }
-  public typealias RawValue = Swift.Int
   public init?(rawValue: Swift.Int)
-  public var rawValue: Swift.Int {
+  public typealias AllCases = [DIFuel]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [DIFuel] {
     get
   }
-  public typealias AllCases = [DIFuel]
-  public static var allCases: [DIFuel] {
+  public var rawValue: Swift.Int {
     get
   }
 }
@@ -408,13 +409,13 @@ public enum DIElectricFilter : Swift.Int, Swift.CaseIterable {
   case others
   case sedan
   case suv
-  public typealias RawValue = Swift.Int
   public init?(rawValue: Swift.Int)
-  public var rawValue: Swift.Int {
+  public typealias AllCases = [DIElectricFilter]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [DIElectricFilter] {
     get
   }
-  public typealias AllCases = [DIElectricFilter]
-  public static var allCases: [DIElectricFilter] {
+  public var rawValue: Swift.Int {
     get
   }
 }
@@ -424,8 +425,8 @@ public enum DIDataPlan : Swift.String, Swift.Codable, Swift.CustomStringConverti
   public var description: Swift.String {
     get
   }
-  public typealias RawValue = Swift.String
   public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
   public var rawValue: Swift.String {
     get
   }
@@ -436,8 +437,8 @@ public enum DIGPSPrecision : Swift.String, Swift.Codable, Swift.CustomStringConv
   public var description: Swift.String {
     get
   }
-  public typealias RawValue = Swift.String
   public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
   public var rawValue: Swift.String {
     get
   }
@@ -448,8 +449,8 @@ public enum DIRecordingMode : Swift.Int, Swift.Codable, Swift.CustomStringConver
   public var description: Swift.String {
     get
   }
-  public typealias RawValue = Swift.Int
   public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
   public var rawValue: Swift.Int {
     get
   }
@@ -607,8 +608,8 @@ public enum DIEventType : Swift.Int, Swift.Codable {
   case processedDistraction
   case onFootNotConfirmed
   case onFootConfirmed
-  public typealias RawValue = Swift.Int
   public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
   public var rawValue: Swift.Int {
     get
   }
@@ -662,10 +663,10 @@ public protocol DIAnalyticsDelegate : AnyObject {
     public enum Connectivity {
       case wifiConnectionDetected
       public static func == (a: DIAnalytics.Event.Connectivity, b: DIAnalytics.Event.Connectivity) -> Swift.Bool
+      public func hash(into hasher: inout Swift.Hasher)
       public var hashValue: Swift.Int {
         get
       }
-      public func hash(into hasher: inout Swift.Hasher)
     }
     public func name() -> Swift.String
     public func data() -> [Swift.String : Any]
@@ -708,8 +709,8 @@ public enum DIBackgroundFetchResult : Swift.UInt {
   case newData
   case noData
   case failed
-  public typealias RawValue = Swift.UInt
   public init?(rawValue: Swift.UInt)
+  public typealias RawValue = Swift.UInt
   public var rawValue: Swift.UInt {
     get
   }
