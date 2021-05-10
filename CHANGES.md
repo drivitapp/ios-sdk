@@ -2,6 +2,10 @@
 
 In this section you can find what has changed from version to version.
 
+## 4.9.0
+
+- Nothing has changed;
+
 ## 4.9.0-beta1
 
 - Implement counters for accel and location files;
