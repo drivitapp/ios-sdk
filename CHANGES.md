@@ -2,18 +2,18 @@
 
 In this section you can find what has changed from version to version.
 
+## 4.9.1
+
+- Fixes silent crash related to shared initializers;
+
 ## 4.9.0
-
-- Nothing has changed;
-
-## 4.9.0-beta1
 
 - Implement counters for accel and location files;
 
 ## 4.8.0
 
 - Reactivates walking detection;
-- Fixes sensors recording ratio;
+- Fixes minor issues;
 - Updates `Firebase` dependency version to `7.9.0`;
 
 ## 4.7.0
