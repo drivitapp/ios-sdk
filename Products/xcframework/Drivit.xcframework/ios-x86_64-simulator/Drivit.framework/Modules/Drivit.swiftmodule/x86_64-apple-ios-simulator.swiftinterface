@@ -1,0 +1,851 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.4 (swiftlang-1205.0.26.9 clang-1205.0.19.55)
+// swift-module-flags: -target x86_64-apple-ios11.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name Drivit
+import AVFAudio.AVAudioSession
+import AVFAudio
+import AVFoundation
+import BackgroundTasks
+import CoreMotion.CMMotionManager
+import CallKit
+import SystemConfiguration.CaptiveNetwork
+import CommonCrypto
+import Contacts
+import CoreData
+import CoreLocation
+import CoreMotion
+import Dispatch
+import ExternalAccessory
+
+import Foundation
+import LocalAuthentication
+import MapKit
+import Foundation.NSByteCountFormatter
+import Foundation.NSData
+import Foundation.NSThread
+import Foundation.NSURLSession
+import Security
+import Swift
+import SystemConfiguration
+import UIKit.UIApplication
+import UIKit.UIDevice
+import UIKit
+import os.log
+import os
+import zlib
+public protocol DIUserSettings : AnyObject {
+  var dataPlan: DIDataPlan { get set }
+  var locationType: DIGPSPrecision { get set }
+  var softTripsRecordingMode: DIRecordingMode { get set }
+  var lastVehicleGuid: Swift.String? { get }
+  var lastTargetVehicleGuid: Swift.String? { get }
+  var chargingRules: [DIChargingRule] { get set }
+  var isBeaconAssistedTripRecordingEnabled: Swift.Bool { get set }
+}
+public protocol DIDestination : AnyObject {
+  var address: Swift.String? { get set }
+  var coordinate: DICoordinate? { get }
+}
+public let DIPushNotificationsID: Swift.String
+@_hasMissingDesignatedInitializers final public class Drivit {
+  public static var version: Swift.String {
+    get
+  }
+  public static var build: Swift.String {
+    get
+  }
+  @objc deinit
+}
+extension Drivit {
+  @_hasMissingDesignatedInitializers public class `default` {
+    public static func register(withOptions options: [UIKit.UIApplication.LaunchOptionsKey : Any]?)
+    public static func registerForRemoteNotifications(withDeviceToken deviceToken: Foundation.Data)
+    public static func didReceiveRemoteNotification(userInfo: [Swift.AnyHashable : Any])
+    public static func didReceiveRemoteNotification(userInfo: [Swift.AnyHashable : Any], completionHandler: @escaping (UIKit.UIBackgroundFetchResult) -> Swift.Void)
+    @available(iOS, deprecated: 13, message: "Enable background task scheduler identifiers")
+    public static func performFetch(withCompletionHandler completionHandler: @escaping (DIBackgroundFetchResult) -> Swift.Void)
+    public static func handleEventsForBackgroundURLSession(withIdentifier identifier: Swift.String, completionHandler: @escaping () -> Swift.Void)
+    public static func enableDebugMode()
+    @objc deinit
+  }
+}
+extension NSNotification.Name {
+  public static var loggedIn: Foundation.Notification.Name {
+    get
+  }
+  public static var loggedOut: Foundation.Notification.Name {
+    get
+  }
+  public static var didStartTripNotification: Foundation.Notification.Name {
+    get
+  }
+  public static var didFinishTripNotification: Foundation.Notification.Name {
+    get
+  }
+  public static var didRestartTripNotification: Foundation.Notification.Name {
+    get
+  }
+  public static var didChangeTripNotification: Foundation.Notification.Name {
+    get
+  }
+  public static var didUpdateReportNotification: Foundation.Notification.Name {
+    get
+  }
+  public static var didChangeTripsWaitingForSyncNotification: Foundation.Notification.Name {
+    get
+  }
+}
+public protocol DIPresentDevice : AnyObject {
+  var macAddress: Swift.String? { get }
+  var name: Swift.String? { get }
+  var deviceId: Swift.String? { get }
+  var portType: Swift.Int? { get }
+  var scanCount: Swift.Int? { get }
+  var connectionTs: Swift.Int? { get }
+  var deviceType: Swift.Int? { get }
+  var btClass: Swift.Int? { get }
+}
+public protocol DILocation : AnyObject {
+  var address: Swift.String? { get set }
+  var timestamp: Foundation.Date { get set }
+  var coordinate: DICoordinate { get set }
+}
+public protocol DIUsage : AnyObject {
+  var timePattern: Swift.String? { get }
+  var timePatternLastUpdated: Swift.Int? { get }
+}
+public protocol DIVehicleConsumptionData : DIDataCalculation {
+  var status: Swift.Int { get }
+}
+public protocol DIVehicle : AnyObject {
+  var settings: DIVehicleSettings? { get }
+  var details: [DIVehicleDetails]? { get }
+}
+extension Drivit {
+  @_hasMissingDesignatedInitializers final public class analytics {
+    public static var delegate: DIAnalyticsDelegate? {
+      get
+      set
+    }
+    @objc deinit
+  }
+}
+extension Drivit {
+  @_hasMissingDesignatedInitializers final public class cloud {
+    public static func carMakes(year: Swift.Int, fuel: DIFuel, completion: @escaping (Swift.Result<[Swift.String], Swift.Error>) -> Swift.Void)
+    public static func carModels(year: Swift.Int, make: Swift.String, fuel: DIFuel, filterByYear: Swift.Bool = true, completion: @escaping (Swift.Result<[DIVehicleDetails], Swift.Error>) -> Swift.Void)
+    public static func carVersions(year: Swift.Int, make: Swift.String, fuel: DIFuel, subModel: Swift.String, filterByYear: Swift.Bool = true, completion: @escaping (Swift.Result<[DIVehicleDetails], Swift.Error>) -> Swift.Void)
+    public static func electricModelPerClass(filters: [DIElectricFilter], completion: @escaping (Swift.Result<[DIVehicleDetails], Swift.Error>) -> Swift.Void)
+    public static func parseTecdoc(xml: Swift.String, completion: @escaping (Swift.Result<DIVehicle, Swift.Error>) -> Swift.Void)
+    public static func syncAccelAndTrips(includeScoringData: Swift.Bool = false, completion: @escaping (Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void)
+    public static func send(feedback message: Swift.String, completion: ((Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void)? = nil)
+    @objc deinit
+  }
+}
+public protocol DIVehicleSettings : AnyObject {
+  var chosenSoftTripConsumptionId: Swift.String? { get }
+  var customSoftTripConsumptionValue: Swift.Double? { get }
+  var fuelPrice: Swift.Double? { get set }
+}
+public enum DIFuel : Swift.Int, Swift.CaseIterable {
+  case petrol
+  case diesel
+  case electric
+  case ethanol
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [DIFuel]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [DIFuel] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum DIElectricFilter : Swift.Int, Swift.CaseIterable {
+  case combi
+  case coupe
+  case hatchback
+  case others
+  case sedan
+  case suv
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [DIElectricFilter]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [DIElectricFilter] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum DIDataPlan : Swift.String, Swift.Codable, Swift.CustomStringConvertible {
+  case wifi
+  case any
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum DIGPSPrecision : Swift.String, Swift.Codable, Swift.CustomStringConvertible {
+  case low
+  case high
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum DIRecordingMode : Swift.Int, Swift.Codable, Swift.CustomStringConvertible {
+  case off
+  case on
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension Drivit {
+  @_hasMissingDesignatedInitializers final public class user {
+    @_hasMissingDesignatedInitializers final public class preferences {
+      public static var chargingRules: [DIChargingRule] {
+        get
+        set
+      }
+      public static var dataPlan: DIDataPlan {
+        get
+        set
+      }
+      public static var locationType: DIGPSPrecision {
+        get
+        set
+      }
+      public static var softTripsRecordingMode: DIRecordingMode {
+        get
+        set
+      }
+      public static var isBeaconAssistedTripRecordingEnabled: Swift.Bool {
+        get
+        set
+      }
+      @objc deinit
+    }
+    public static var id: Swift.String? {
+      get
+    }
+    public static var email: Swift.String? {
+      get
+    }
+    public static var lastVehicleGuid: Swift.String? {
+      get
+    }
+    public static var lastTargetVehicleGuid: Swift.String? {
+      get
+    }
+    public static func vehicles() -> [DIVehicle]
+    public static func currentVehicle() -> DIVehicle?
+    @available(*, deprecated, message: "Use currentVehicle().settings.fuelPrice instead")
+    public static func currentVehicleFuelPrice() -> Swift.Double
+    public static func targetVehicle(vehicleDetails: DIVehicleDetails)
+    public static func targetVehicle() -> DIVehicle?
+    public static func add(vehicleDetails: DIVehicleDetails, completion: @escaping (Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void)
+    public static func remove(guid: Swift.String, completion: @escaping (Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void)
+    public static func createVehicle(guid: Swift.String, year: Swift.Int) -> DIVehicleDetails
+    public static func checkIfUserHasTripsOrAccelToSync() -> CheckAndSyncResult
+    public static func trips(completion: @escaping (Swift.Result<[DITrip], Swift.Error>) -> Swift.Void)
+    public static func trip(guid: Swift.String) -> DITrip?
+    public static func runningTrip() -> DITrip?
+    public static func handleUserAction_userArrived()
+    public static func isRecordingTrip() -> Swift.Bool
+    public static func generateReport(completion: @escaping (Swift.Result<DIReport, Swift.Error>) -> Swift.Void)
+    @discardableResult
+    public static func simulateTrip() -> Swift.String
+    @objc deinit
+  }
+}
+public protocol DICoordinate : AnyObject {
+  var latitude: Swift.Double { get set }
+  var longitude: Swift.Double { get set }
+}
+extension Drivit {
+  @_hasMissingDesignatedInitializers final public class settings {
+    public static var googleAPIKey: Swift.String? {
+      get
+      set
+    }
+    public static func openPermissionsScreen() -> Swift.Bool
+    @objc deinit
+  }
+}
+public protocol DIUser : AnyObject {
+  var email: Swift.String { get }
+  var firstName: Swift.String { get }
+  var lastName: Swift.String { get }
+}
+public enum DILogin {
+  case regular(email: Swift.String, password: Swift.String)
+  case advance(secret: Swift.String)
+}
+public enum DISignup {
+  case regular(email: Swift.String, password: Swift.String, firstName: Swift.String, lastName: Swift.String, region: DIRegion? = nil)
+  case advance(secret: Swift.String, region: DIRegion? = nil)
+}
+public struct DIRegion {
+  public var countryCode: Swift.String
+  public var countrySubclass: [Swift.String]
+  public init(countryCode: Swift.String, countrySubclass: [Swift.String])
+}
+public protocol DIAuthentication : AnyObject {
+  var isLoggedIn: Swift.Bool { get }
+  func logout() -> Swift.Bool
+  func login(type: DILogin, completion: @escaping (Swift.Result<DIUser, Swift.Error>) -> Swift.Void)
+  func signup(type: DISignup, completion: @escaping (Swift.Result<DIUser, Swift.Error>) -> Swift.Void)
+  func resetPassword(email: Swift.String, completion: @escaping (Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void)
+  func removeAccount(completion: @escaping (Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void)
+}
+public protocol DIOrigin : AnyObject {
+  var address: Swift.String? { get set }
+  var coordinate: DICoordinate? { get }
+}
+public protocol DIReport {
+  var tripCount_total: Swift.Int { get }
+  var distance_total: Swift.Double { get }
+  var tripCount_withForcedCharging: Swift.Int { get }
+  var tripCountWithNormalCharging: Swift.Int { get }
+  var reportTimePeriod: Swift.Int { get }
+  var energyExpenses_baseVehicle: Swift.Double { get }
+  var energyExpenses_targetVehicle: Swift.Double { get }
+  var chargingEventsCount_private: Swift.Int { get }
+  var chargingEventsCount_public: Swift.Int { get }
+  var chargingEventsCount_privateOptimistic: Swift.Int { get }
+  var chargingEventsDuration_public_ifFastCharging: Swift.Int { get }
+  var chargingEventsDuration_public_ifSlowCharging: Swift.Int { get }
+  var totalCo2_baseVehicle: Swift.Double { get }
+  var totalCo2_targetVehicle: Swift.Double { get }
+  var equivalentNumberOfTrees_baseVehicle: Swift.Double { get }
+  var equivalentNumberOfTrees_targetVehicle: Swift.Double { get }
+  var averageBatteryConsumedPerTrip: Swift.Double { get }
+  var initialBatteryLevel_privateCharging: Swift.Double { get }
+  var initialBatteryLevel_publicCharging: Swift.Double { get }
+  var chargingEventsDuration_private: Swift.Int { get }
+  var currentBatteryLevel: Swift.Double { get }
+  var availableRange: Swift.Int { get }
+  var availableRangeWltp: Swift.Int { get }
+  var averageBatteryLevel: [Swift.Double] { get }
+}
+public protocol DIAnalyticsDelegate : AnyObject {
+  func analytics(_ analytics: DIAnalytics, didTriggerEvent event: DIAnalytics.Event)
+}
+@_hasMissingDesignatedInitializers public class DIAnalytics {
+  public enum Event {
+    case connectivity(DIAnalytics.Event.Connectivity)
+    case resources(DIAnalytics.Event.Resources)
+    public enum Connectivity {
+      case wifiConnectionDetected
+      public static func == (a: DIAnalytics.Event.Connectivity, b: DIAnalytics.Event.Connectivity) -> Swift.Bool
+      public func hash(into hasher: inout Swift.Hasher)
+      public var hashValue: Swift.Int {
+        get
+      }
+    }
+    public enum Resources {
+      case storage(ResourcesDataStorage)
+    }
+    public func name() -> Swift.String
+    public func data() -> [Swift.String : Any]
+  }
+  @objc deinit
+}
+public struct ResourcesDataStorage {
+}
+public enum DIError : Swift.Error {
+  public enum Authentication : Swift.Error, Foundation.LocalizedError {
+    case other
+    case invalidData
+    case invalidRegion
+    case accountScheduledForRemoval
+    case wrongCredentials
+    case userAlreadyExists
+    case alreadyLoggedIn
+    case notLoggedIn
+    case authenticationInProgress
+    public static func == (a: DIError.Authentication, b: DIError.Authentication) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public enum DeleteAccount : Swift.Error {
+    case failed
+    public static func == (a: DIError.DeleteAccount, b: DIError.DeleteAccount) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public enum ResetPassword : Swift.Error {
+    case failed
+    public static func == (a: DIError.ResetPassword, b: DIError.ResetPassword) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public enum SnappedLocations : Swift.Error {
+    case failed
+    case missingSnapLocations
+    case missingLocations
+    case missingGoogleAPIKey
+    public static func == (a: DIError.SnappedLocations, b: DIError.SnappedLocations) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public enum Trips : Swift.Error {
+    case notFound
+    public static func == (a: DIError.Trips, b: DIError.Trips) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public enum Garage : Swift.Error {
+    case vehicleNotFound
+    public static func == (a: DIError.Garage, b: DIError.Garage) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public enum Object : Swift.Error {
+    case notFound
+    public static func == (a: DIError.Object, b: DIError.Object) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+}
+extension DIError.Authentication {
+  public func code() -> Swift.Int
+  public var localizedDescription: Swift.String {
+    get
+  }
+}
+extension CLAuthorizationStatus : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+extension Collection where Self.Element == Swift.UInt8, Self.Index == Swift.Int {
+}
+public protocol DITargetVehicleConsumptionData : DIDataCalculation {
+  var chargingEvents: [DIChargingEvent] { get set }
+  var batteryConsumption: Swift.Double { get }
+  var areBatteryLevelsAvailable: Swift.Bool { get }
+  var batteryLevel_tripStart: Swift.Double { get }
+  var batteryLevel_tripEnd: Swift.Double { get }
+}
+public enum DIResult<T> {
+  case success(T)
+  case error(Swift.Error)
+}
+public enum DIChargingRuleId : Swift.Int, Swift.Codable {
+  case home
+  case work
+  case publicSpaces
+  case unknown
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum DIChargingRuleDays : Swift.Int {
+  case onlyBusinessDays
+  case allDays
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public protocol DIChargingRule : AnyObject {
+  var batteryThreshold_ev: Swift.Int { get }
+  var batteryThreshold_phev: Swift.Int { get }
+  var daysOfChargingId: Swift.Int { get }
+  var electricityPrice: Swift.Double { get }
+  var hourOfDay: Swift.Int { get }
+  var ruleId: Swift.Int { get }
+  var ruleState: Swift.Bool { get }
+}
+public enum DIBackgroundFetchResult : Swift.UInt {
+  case newData
+  case noData
+  case failed
+  public init?(rawValue: Swift.UInt)
+  public typealias RawValue = Swift.UInt
+  public var rawValue: Swift.UInt {
+    get
+  }
+}
+public struct CheckAndSyncResult {
+  public let numberOfTripsWaitingForConsumption: Swift.Int
+  public let numberOfUnsyncedTrips: Swift.Int
+}
+public protocol DIVehicleDetails : AnyObject {
+  var tankCapacity: Swift.Double? { get }
+  var make: Swift.String? { get }
+  var model: Swift.String? { get }
+  var subModel: Swift.String? { get }
+  var specs: Swift.String? { get }
+  var power: Swift.Int? { get }
+  var guid: Swift.String? { get }
+  var engineDisplacement: Swift.Int? { get }
+  var combinedFuelConsumption: Swift.Double? { get }
+  var consumptionCorrectionFactor: Swift.Double? { get }
+  var registrationYear: Swift.Int? { get set }
+  var firstProductionYear: Swift.Int? { get }
+  var fuelType: Swift.Int { get }
+  var secondaryFuelType: Swift.Int? { get }
+  var hasStartStop: Swift.Bool? { get }
+  var cityFuelConsumption: Swift.Double? { get }
+  var highwayFuelConsumption: Swift.Double? { get }
+  var lastProductionYear: Swift.Int? { get }
+  var acceleration0To100: Swift.Double? { get }
+  var batteryCapacity: Swift.Double? { get }
+  var allElectricRange: Swift.Int? { get }
+  var averageEnergyConsumption: Swift.Double? { get }
+  var vehicleType: Swift.Int? { get }
+  var vehicleClass: Swift.Int? { get }
+  var imageUrl: Swift.String? { get }
+  var parameterA: Swift.Double? { get }
+  var parameterB: Swift.Double? { get }
+  var rangeWltp: Swift.Double? { get }
+  var averageEnergyConsumptionWltp: Swift.Double? { get }
+}
+public enum DIPermissionType : Swift.Int {
+  case location
+  case motion
+  case backgroundRefresh
+  case powermode
+  case internet
+  case lowStorage
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension DIPermissionType : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+public enum DIPermissionStatus : Swift.Int {
+  case ok
+  case error
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum DIPermissionRequest {
+  case complete
+  case partial
+  public static func == (a: DIPermissionRequest, b: DIPermissionRequest) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum DIPermissionReason : Swift.Equatable {
+  case location(DIPermissionReason.Location)
+  case motion(DIPermissionReason.Motion)
+  case internet(DIPermissionReason.Internet)
+  case powerMode(DIPermissionReason.PowerMode)
+  case lowStorage(DIPermissionReason.LowStorage)
+  case backgroundRefresh(DIPermissionReason.BackgroundRefresh)
+  public enum Location {
+    case notDetermined
+    case whenInUse
+    case always
+    case denied
+    case restricted
+    case reducedAccuracy
+    public static func == (a: DIPermissionReason.Location, b: DIPermissionReason.Location) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public enum Motion {
+    case notDetermined
+    case restricted
+    case denied
+    case authorized
+    public static func == (a: DIPermissionReason.Motion, b: DIPermissionReason.Motion) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public enum Internet {
+    case wifi
+    case cellular
+    case off
+    public static func == (a: DIPermissionReason.Internet, b: DIPermissionReason.Internet) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public enum PowerMode {
+    case on
+    case off
+    public static func == (a: DIPermissionReason.PowerMode, b: DIPermissionReason.PowerMode) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public enum LowStorage {
+    case low
+    case normal
+    public static func == (a: DIPermissionReason.LowStorage, b: DIPermissionReason.LowStorage) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public enum BackgroundRefresh {
+    case restricted
+    case denied
+    case available
+    public static func == (a: DIPermissionReason.BackgroundRefresh, b: DIPermissionReason.BackgroundRefresh) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public static func == (lhs: DIPermissionReason, rhs: DIPermissionReason) -> Swift.Bool
+}
+public protocol DIPermission : AnyObject {
+  typealias PermissionDidChange = (DIPermission) -> Swift.Void
+  var didChange: Self.PermissionDidChange? { get set }
+  func reason() -> DIPermissionReason
+  func status() -> DIPermissionStatus
+  func identifier() -> DIPermissionType
+  func resolve()
+  func resolve(request: DIPermissionRequest)
+}
+extension DIPermission {
+  public func resolve()
+  public func resolve(request: DIPermissionRequest)
+}
+public class DIPermissionsManager {
+  public typealias PermissionsDidChange = (DIPermissionsManager) -> Swift.Void
+  public var didChange: DIPermissionsManager.PermissionsDidChange?
+  @objc deinit
+  public init()
+  public func allSettings() -> [DIPermission]
+  public func currentStatus() -> DIPermissionStatus
+  public func lastStatusData() -> [DIPermission]
+  public func startNotifier()
+  public func stopNotifier()
+}
+public protocol DIChargingEvent : AnyObject {
+  var tripGuid: Swift.String? { get }
+  var chargingRuleId: DIChargingRuleId { get }
+  var initialBatteryLevel: Swift.Double { get }
+  var energyCharged: Swift.Double { get }
+  var tsStart: Swift.Int { get }
+  var tsEnd: Swift.Int { get }
+}
+extension Drivit {
+  @_hasMissingDesignatedInitializers final public class authentication {
+    public static var isLoggedIn: Swift.Bool {
+      get
+    }
+    public static func logout() -> Swift.Bool
+    public static func login(type: DILogin, completion: @escaping (Swift.Result<DIUser, Swift.Error>) -> Swift.Void)
+    public static func signup(type: DISignup, completion: @escaping (Swift.Result<DIUser, Swift.Error>) -> Swift.Void)
+    public static func resetPassword(email: Swift.String, completion: @escaping (Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void)
+    public static func removeAccount(completion: @escaping (Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void)
+    @objc deinit
+  }
+}
+public enum DIEventType : Swift.Int, Swift.Codable {
+  case error
+  case acceleration
+  case brake
+  case phoneUnlocked
+  case screenOff
+  case deadApp
+  case processedAggressive
+  case processedDistraction
+  case onFootNotConfirmed
+  case onFootConfirmed
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public protocol DIEvent : AnyObject {
+  var type: DIEventType? { get }
+  var mTsStart: Swift.Int? { get }
+  var timestamp: Swift.Int? { get }
+  var value: Swift.Double? { get }
+  var property: Swift.Int? { get }
+}
+public enum DITripValidity : Swift.Int {
+  case rejectedByUser2InCarButNotDriving
+  case rejectedByUser2PublicTransport
+  case rejectedByUser2BikeWalkStill
+  case rejectedNotRecorded
+  case rejectedByUserOther
+  case rejectedByUserNoReason
+  case rejectedStillTrip
+  case acceptedByUser
+  case pendingAcceptance
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public protocol DITrip : AnyObject {
+  var guid: Swift.String { get }
+  var origin: DIOrigin? { get }
+  var destination: DIDestination? { get }
+  var distance: Swift.Double { get }
+  var tsStartUtcOffset: Swift.Double { get }
+  var consumption: Swift.Double? { get set }
+  var mClassification: Swift.Int? { get }
+  var mRiskScore: Swift.Int? { get }
+  var mConsumptionDataSynced: Swift.Bool { get }
+  var numberHarshEvents: Swift.Int? { get }
+  var fuelPrice: Swift.Double? { get }
+  var tsStart: Swift.Int { get }
+  var tsEnd: Swift.Int { get }
+  var distractionTime: Swift.Int? { get }
+  var rejectedReason: Swift.Int { get set }
+  var state: Swift.Int { get }
+  var mSoftDelete: Swift.Bool { get set }
+  var isRejected: Swift.Bool { get }
+  var isWaitingForConsumptionData: Swift.Bool { get }
+  var vehicle: Swift.String? { get }
+  var vehicleConsumptionData: DIVehicleConsumptionData? { get }
+  var targetVehicleConsumptionData: DITargetVehicleConsumptionData? { get }
+  func locations(completion: @escaping (Swift.Result<[DILocation], Swift.Error>) -> Swift.Void)
+  func snappedLocations(completion: @escaping (Swift.Result<[DILocation], Swift.Error>) -> Swift.Void)
+  func fuelConsumption() -> Swift.Double
+  func fuelCost() -> Swift.Double
+  func rejectedReason(mergeWithServer: Swift.Bool) -> Swift.Int
+  func hasFilesToSync() -> Swift.Bool
+  func hasAutomaticClassification() -> Swift.Bool
+  func sync(completion: @escaping (Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void)
+  func sync(includeScoringData: Swift.Bool, completion: @escaping (Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void)
+  func areLocationsAndEventsAvailable() -> Swift.Bool
+  func report(message: Swift.String)
+  func report(message: Swift.String, completion: @escaping (Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void)
+}
+public protocol DIDataCalculation : AnyObject {
+  var totalCost: Swift.Double { get }
+  var totalCO2: Swift.Double { get }
+  var distance: Swift.Double { get }
+  var fuelType: DIFuel { get }
+  var fuelPrice: Swift.Double { get }
+  var fuelConsumption: Swift.Double { get }
+  var electricityPrice: Swift.Double { get }
+  var electricityConsumption: Swift.Double { get }
+}
+extension DIDataCalculation {
+  public var totalCost: Swift.Double {
+    get
+  }
+  public var totalCO2: Swift.Double {
+    get
+  }
+}
+extension DIFuel : Swift.Equatable {}
+extension DIFuel : Swift.Hashable {}
+extension DIFuel : Swift.RawRepresentable {}
+extension DIElectricFilter : Swift.Equatable {}
+extension DIElectricFilter : Swift.Hashable {}
+extension DIElectricFilter : Swift.RawRepresentable {}
+extension DIDataPlan : Swift.Equatable {}
+extension DIDataPlan : Swift.Hashable {}
+extension DIDataPlan : Swift.RawRepresentable {}
+extension DIGPSPrecision : Swift.Equatable {}
+extension DIGPSPrecision : Swift.Hashable {}
+extension DIGPSPrecision : Swift.RawRepresentable {}
+extension DIRecordingMode : Swift.Equatable {}
+extension DIRecordingMode : Swift.Hashable {}
+extension DIRecordingMode : Swift.RawRepresentable {}
+extension DIAnalytics.Event.Connectivity : Swift.Equatable {}
+extension DIAnalytics.Event.Connectivity : Swift.Hashable {}
+extension DIError.Authentication : Swift.Equatable {}
+extension DIError.Authentication : Swift.Hashable {}
+extension DIError.DeleteAccount : Swift.Equatable {}
+extension DIError.DeleteAccount : Swift.Hashable {}
+extension DIError.ResetPassword : Swift.Equatable {}
+extension DIError.ResetPassword : Swift.Hashable {}
+extension DIError.SnappedLocations : Swift.Equatable {}
+extension DIError.SnappedLocations : Swift.Hashable {}
+extension DIError.Trips : Swift.Equatable {}
+extension DIError.Trips : Swift.Hashable {}
+extension DIError.Garage : Swift.Equatable {}
+extension DIError.Garage : Swift.Hashable {}
+extension DIError.Object : Swift.Equatable {}
+extension DIError.Object : Swift.Hashable {}
+extension DIChargingRuleId : Swift.Equatable {}
+extension DIChargingRuleId : Swift.Hashable {}
+extension DIChargingRuleId : Swift.RawRepresentable {}
+extension DIChargingRuleDays : Swift.Equatable {}
+extension DIChargingRuleDays : Swift.Hashable {}
+extension DIChargingRuleDays : Swift.RawRepresentable {}
+extension DIBackgroundFetchResult : Swift.Equatable {}
+extension DIBackgroundFetchResult : Swift.Hashable {}
+extension DIBackgroundFetchResult : Swift.RawRepresentable {}
+extension DIPermissionType : Swift.Equatable {}
+extension DIPermissionType : Swift.Hashable {}
+extension DIPermissionType : Swift.RawRepresentable {}
+extension DIPermissionStatus : Swift.Equatable {}
+extension DIPermissionStatus : Swift.Hashable {}
+extension DIPermissionStatus : Swift.RawRepresentable {}
+extension DIPermissionRequest : Swift.Equatable {}
+extension DIPermissionRequest : Swift.Hashable {}
+extension DIPermissionReason.Location : Swift.Equatable {}
+extension DIPermissionReason.Location : Swift.Hashable {}
+extension DIPermissionReason.Motion : Swift.Equatable {}
+extension DIPermissionReason.Motion : Swift.Hashable {}
+extension DIPermissionReason.Internet : Swift.Equatable {}
+extension DIPermissionReason.Internet : Swift.Hashable {}
+extension DIPermissionReason.PowerMode : Swift.Equatable {}
+extension DIPermissionReason.PowerMode : Swift.Hashable {}
+extension DIPermissionReason.LowStorage : Swift.Equatable {}
+extension DIPermissionReason.LowStorage : Swift.Hashable {}
+extension DIPermissionReason.BackgroundRefresh : Swift.Equatable {}
+extension DIPermissionReason.BackgroundRefresh : Swift.Hashable {}
+extension DIEventType : Swift.Equatable {}
+extension DIEventType : Swift.Hashable {}
+extension DIEventType : Swift.RawRepresentable {}
+extension DITripValidity : Swift.Equatable {}
+extension DITripValidity : Swift.Hashable {}
+extension DITripValidity : Swift.RawRepresentable {}

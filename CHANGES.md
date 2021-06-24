@@ -2,6 +2,15 @@
 
 In this section you can find what has changed from version to version.
 
+## 5.0.0
+
+- Creates dynamic xcframework;
+- Bump Firebase to version 8.2.0;
+
+## 4.10.0
+
+- Add public API to get SDK build number;
+
 ## 4.9.1
 
 - Fixes silent crash related to shared initializers;

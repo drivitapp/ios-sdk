@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 	s.name		= 'Drivit'
-	s.version	= '4.9.1'
+	s.version	= '5.0.0'
 
 	s.summary	= 'A really cool SDK.'
 	s.homepage	= 'https://www.drivit.com'
@@ -9,15 +9,10 @@ Pod::Spec.new do |s|
 
 	s.platform	= :ios
 	s.requires_arc = true
-	s.static_framework = true
-	s.ios.deployment_target = '10.0'
+	s.ios.deployment_target = '11.0'
 
-	s.vendored_frameworks = 'Drivit.framework'
-	s.resource_bundles = { 'Resources' => ['Drivit.bundle'] }
+	s.vendored_frameworks = 'Products/xcframework/Drivit.xcframework'
+	s.source = { :path => 'Products/xcframework/Drivit.xcframework' }
 
-	s.source = { :git => 'https://github.com/drivitapp/ios-sdk.git', :tag => s.version }
-	s.xcconfig = { 'SWIFT_INCLUDE_PATHS' => '$(inherited) "${PODS_ROOT}/Drivit/Drivit.framework" "${PODS_CONFIGURATION_BUILD_DIR}/Drivit"' }
-
-	s.dependency 'Firebase/Messaging', '7.9.0'
-	s.dependency 'Firebase/Analytics', '7.9.0'
+	s.dependency 'Firebase/Messaging', '8.2.0'
 end
